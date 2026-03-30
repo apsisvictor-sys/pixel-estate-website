@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Εργοστάσιο Επεξεργασίας Πέτρας — Προς Πώληση | Pixel Estate</title>
+  <meta name="description" content="Βιομηχανικό εργοστάσιο επεξεργασίας πέτρας, αίθουσα παραγωγής 860 τ.μ., πλήρης εξοπλισμός. Δήμος Μέζντρα, Βουλγαρία.">
+  <meta property="og:title" content="Εργοστάσιο Επεξεργασίας Πέτρας — €630.000">
+  <meta property="og:description" content="Βιομηχανικό εργοστάσιο επεξεργασίας πέτρας, αίθουσα παραγωγής 860 τ.μ., πλήρης εξοπλισμός. Δήμος Μέζντρα, Βουλγαρία.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="/pixel-estate-logo.png">
+  <script src="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <style>
+    :root {
+      --bg:       #0d0d1a;
+      --surface:  #131326;
+      --border:   #1e1e3a;
+      --teal:     #00C4A8;
+      --purple:   #6B35B0;
+      --text:     #cccccc;
+      --muted:    #777777;
+      --white:    #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Top accent bar ─────────────────── */
+    .accent-bar {
+      height: 3px;
+      background: linear-gradient(90deg, var(--purple), var(--teal));
+      flex-shrink: 0;
+    }
+
+    /* ── Header ─────────────────────────── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-wrap img {
+      height: 40px;
+      width: auto;
+    }
+    .logo-text {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+    .logo-text span {
+      display: block;
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+    .lang-link {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 4px 6px;
+      border-radius: 4px;
+      transition: color 0.2s;
+    }
+    .lang-link:hover { color: var(--teal); }
+    .lang-active { color: var(--teal); padding: 4px 6px; }
+    .lang-sep { color: var(--border); }
+
+    /* ── Hero ───────────────────────────── */
+    .hero {
+      text-align: center;
+      padding: 40px 32px 28px;
+      flex-shrink: 0;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--teal);
+      background: rgba(0,196,168,0.1);
+      border: 1px solid rgba(0,196,168,0.25);
+      border-radius: 20px;
+      padding: 4px 14px;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .hero-sub {
+      font-size: clamp(13px, 1.5vw, 16px);
+      color: var(--muted);
+      letter-spacing: 0.02em;
+    }
+    .hero-sub strong {
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    /* ── Stats row ──────────────────────── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      padding: 0 32px 32px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .stat-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 24px;
+      text-align: center;
+      min-width: 120px;
+    }
+    .stat-num {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── PDF viewer ─────────────────────── */
+    .viewer-wrap {
+      flex: 1;
+      padding: 0 24px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+    #pdf-container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    #pdf-container canvas {
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+      display: block;
+    }
+    .pdf-loading {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 60px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid var(--border);
+      border-top-color: var(--teal);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Download button ────────────────── */
+    .dl-wrap {
+      padding: 8px 24px 32px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .dl-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background: linear-gradient(135deg, var(--purple), var(--teal));
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: opacity 0.2s;
+    }
+    .dl-btn:hover { opacity: 0.85; }
+
+    /* ── Footer ─────────────────────────── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 24px 32px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .contact-intro {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .contact-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .contact-item {
+      font-size: 14px;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .contact-item:hover { color: var(--teal); }
+    .contact-name {
+      font-weight: 600;
+      color: var(--white);
+    }
+    .footer-legal {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .footer-legal a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .footer-legal a:hover { color: var(--teal); }
+
+    /* ── Mobile ─────────────────────────── */
+    @media (max-width: 600px) {
+      header { padding: 12px 16px; }
+      .hero { padding: 24px 16px 16px; }
+      .stats { padding: 0 16px 20px; gap: 10px; }
+      .stat-box { padding: 10px 16px; min-width: 100px; }
+      .viewer-wrap { padding: 0 8px 24px; }
+      footer { padding: 20px 16px; }
+      .contact-row { gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="accent-bar"></div>
+
+  <header>
+    <a href="/gr" class="logo-wrap">
+      <img src="/pixel-estate-logo.png" alt="Pixel Estate">
+      <div class="logo-text">
+        Pixel Estate
+        <span>Industrial Property</span>
+      </div>
+    </a>
+    <nav class="lang-switcher">
+      <a href="/en" class="lang-link">EN</a> <span class="lang-sep">|</span> <a href="/bg" class="lang-link">БГ</a> <span class="lang-sep">|</span> <span class="lang-active">ΕΛ</span> <span class="lang-sep">|</span> <a href="/tr" class="lang-link">TR</a>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-tag">Industrial Property &nbsp;·&nbsp; Bulgaria</div>
+    <h1>Εργοστάσιο Επεξεργασίας Πέτρας</h1>
+    <p class="hero-sub">Προς Πώληση &nbsp;·&nbsp; <strong>€630.000</strong> &nbsp;·&nbsp; Δήμος Μέζντρα, Βουλγαρία</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat-box">
+      <div class="stat-num">4.600 τ.μ.</div>
+      <div class="stat-label">Οικόπεδο</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">860 τ.μ.</div>
+      <div class="stat-label">Αίθουσα Παραγωγής</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">150+ kW</div>
+      <div class="stat-label">Παροχή Ρεύματος</div>
+    </div>
+  </div>
+
+  <div class="viewer-wrap">
+    <div id="pdf-container">
+      <div class="pdf-loading">
+        <div class="spinner"></div>
+        Φόρτωση παρουσίασης…
+      </div>
+    </div>
+  </div>
+
+  <div class="dl-wrap">
+    <a href="/presentations/gr.pdf" download class="dl-btn">Λήψη Παρουσίασης</a>
+  </div>
+
+  <footer>
+    <p class="contact-intro">Για περισσότερες πληροφορίες:</p>
+    <div class="contact-row">
+      <span class="contact-name">Victor Apsis</span>
+      <a href="tel:+359886986886" class="contact-item">+359 886 986 886</a>
+      <a href="mailto:info@pixelestate.bg" class="contact-item">info@pixelestate.bg</a>
+    </div>
+    <p class="footer-legal">
+      Pixel Estate Ltd. &nbsp;·&nbsp; Sofia, Bulgaria
+      &nbsp;·&nbsp; <a href="mailto:info@pixelestate.bg">Unsubscribe</a>
+    </p>
+  </footer>
+
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+
+    async function renderPDF(url) {
+      const container = document.getElementById('pdf-container');
+      try {
+        const loadingTask = pdfjsLib.getDocument(url);
+        const pdf = await loadingTask.promise;
+
+        // Clear loading indicator
+        container.innerHTML = '';
+
+        for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+          const page   = await pdf.getPage(pageNum);
+          const scale  = Math.min(2.0, (container.clientWidth || 1200) / page.getViewport({scale:1}).width * window.devicePixelRatio);
+          const vp     = page.getViewport({scale});
+          const canvas = document.createElement('canvas');
+          const ctx    = canvas.getContext('2d');
+          canvas.width  = vp.width;
+          canvas.height = vp.height;
+          canvas.style.width  = '100%';
+          canvas.style.height = 'auto';
+          container.appendChild(canvas);
+          await page.render({canvasContext: ctx, viewport: vp}).promise;
+        }
+      } catch(e) {
+        container.innerHTML = '<p style="color:#888;padding:40px;text-align:center">Could not load presentation.</p>';
+        console.error(e);
+      }
+    }
+
+    renderPDF('/presentations/gr.pdf');
+  </script>
+</body>
+</html>

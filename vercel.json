@@ -1,8 +1,12 @@
 {
   "rewrites": [
-    { "source": "/imoti",   "destination": "/imoti.html" },
-    { "source": "/prodaite","destination": "/prodaite.html" },
-    { "source": "/pazar",   "destination": "/pazar.html" },
-    { "source": "/kontakti","destination": "/kontakti.html" }
+    { "source": "/imoti",                "destination": "/imoti.html" },
+    { "source": "/prodaite",             "destination": "/prodaite.html" },
+    { "source": "/pazar",                "destination": "/pazar.html" },
+    { "source": "/kontakti",             "destination": "/kontakti.html" },
+    { "source": "/stone-workshop/bg",    "destination": "/stone-workshop/bg/index.html" },
+    { "source": "/stone-workshop/gr",    "destination": "/stone-workshop/gr/index.html" },
+    { "source": "/stone-workshop/tr",    "destination": "/stone-workshop/tr/index.html" },
+    { "source": "/stone-workshop/en",    "destination": "/stone-workshop/en/index.html" }
   ]
 }
