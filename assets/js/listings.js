@@ -12,8 +12,8 @@ export async function initListings({ containerId, limit = null, showFilters = fa
     const res = await fetch('/api/listings');
     if (!res.ok) throw new Error('API error');
     const data = await res.json();
-    // EstateAssistant returns array at data.estates or root array — handle both
-    estates = Array.isArray(data) ? data : (data.estates || data.items || []);
+    // EstateAssistant returns { brokers: [...], properties: [...] }
+    estates = Array.isArray(data) ? data : (data.properties || data.estates || data.items || []);
   } catch (e) {
     container.innerHTML = '<div style="color:var(--text-muted);text-align:center;padding:3rem;">Не може да се зареди. Моля, опитайте отново.</div>';
     return;
@@ -43,28 +43,30 @@ function renderCards(estates, container) {
   estates.forEach(estate => {
     const card = document.createElement('div');
     card.className = 'property-card fade-in';
-    card.dataset.estateId = estate.estateid || estate.id || '';
+    card.dataset.estateId = estate.uid || estate.code || '';
 
-    const imageUrl = estate.photos?.[0]?.url || estate.image || null;
+    const imageUrl = estate.photos?.[0]?.url || null;
+    const title = estate.titleBG || estate.titleEN || estate.estate_type_name || 'Имот';
     const imageHTML = imageUrl
-      ? `<img class="property-card-image" src="${imageUrl}" alt="${escHtml(estate.title || '')}" loading="lazy">`
+      ? `<img class="property-card-image" src="${imageUrl}" alt="${escHtml(title)}" loading="lazy">`
       : `<div class="property-card-image-placeholder">Pixel Estate</div>`;
 
-    const price = estate.price
-      ? `${Number(estate.price).toLocaleString('bg-BG')} ${estate.currency || 'EUR'}`
+    const price = estate.priceaseur
+      ? `${Number(estate.priceaseur).toLocaleString('bg-BG')} EUR`
       : 'При запитване';
 
-    const area = estate.area_total || estate.area || '';
-    const rooms = estate.rooms || '';
-    const floor = estate.floor ? `ет. ${estate.floor}` : '';
+    const area = estate.space_m2 || '';
+    const rooms = estate.roomsCount || '';
+    const floor = (estate.floor && estate.floor > 0) ? `ет. ${estate.floor}` : '';
+    const location = estate.subregion_name || estate.region_name || 'София';
 
     card.innerHTML = `
       ${imageHTML}
       <div class="property-card-body">
-        <div class="property-card-type">${escHtml(estate.listing_type || estate.estate_type || 'Оферта')}</div>
-        <div class="property-card-title">${escHtml(estate.title || estate.estate_type || 'Имот')}</div>
-        <div class="property-card-location">📍 ${escHtml(estate.location || estate.area_name || 'Sofia')}</div>
-        <div class="property-card-price">${escHtml(price)} <span>${estate.price_sqm ? `/ ${estate.price_sqm} EUR/м²` : ''}</span></div>
+        <div class="property-card-type">${escHtml(estate.listing_type_name || estate.estate_type_name || 'Оферта')}</div>
+        <div class="property-card-title">${escHtml(title)}</div>
+        <div class="property-card-location">📍 ${escHtml(location)}</div>
+        <div class="property-card-price">${escHtml(price)} <span>${estate.pricePerM ? `/ ${estate.pricePerM} EUR/м²` : ''}</span></div>
         <div class="property-card-stats">
           ${area ? `<div class="property-card-stat"><span class="property-card-stat-value">${escHtml(String(area))} м²</span><span class="property-card-stat-label">Площ</span></div>` : ''}
           ${rooms ? `<div class="property-card-stat"><span class="property-card-stat-value">${escHtml(String(rooms))}</span><span class="property-card-stat-label">Стаи</span></div>` : ''}
@@ -85,7 +87,7 @@ function renderCards(estates, container) {
 }
 
 function renderFilters(estates, container, containerId) {
-  const types = [...new Set(estates.map(e => e.listing_type).filter(Boolean))];
+  const types = [...new Set(estates.map(e => e.listing_type_name).filter(Boolean))];
   const wrapper = document.createElement('div');
   wrapper.className = 'listings-filters';
   wrapper.innerHTML = `
@@ -108,11 +110,11 @@ function renderFilters(estates, container, containerId) {
     const typeVal = document.getElementById('filter-type').value;
     const priceVal = document.getElementById('filter-price').value;
     let filtered = estates;
-    if (typeVal) filtered = filtered.filter(e => e.listing_type === typeVal);
+    if (typeVal) filtered = filtered.filter(e => e.listing_type_name === typeVal);
     if (priceVal) {
       const [min, max] = priceVal.split('-').map(Number);
       filtered = filtered.filter(e => {
-        const p = Number(e.price);
+        const p = Number(e.priceaseur);
         return p >= min && p <= max;
       });
     }
@@ -143,23 +145,34 @@ function openModal(estate) {
   const overlay = document.querySelector('.modal-overlay');
   if (!overlay) return;
 
-  const price = estate.price
-    ? `${Number(estate.price).toLocaleString('bg-BG')} ${estate.currency || 'EUR'}`
+  const title = estate.titleBG || estate.titleEN || estate.estate_type_name || 'Имот';
+  const price = estate.priceaseur
+    ? `${Number(estate.priceaseur).toLocaleString('bg-BG')} EUR`
     : 'При запитване';
+  const description = estate.DescriptionShortBG || estate.DescriptionBG || '';
 
   const photos = estate.photos?.slice(0,3).map(p =>
     `<img src="${p.url}" style="width:100%;border-radius:12px;aspect-ratio:16/9;object-fit:cover;" alt="">`
   ).join('') || '';
 
+  const details = [
+    estate.space_m2 ? `${estate.space_m2} м² площ` : '',
+    estate.roomsCount ? `${estate.roomsCount} стаи` : '',
+    estate.floor > 0 ? `ет. ${estate.floor}` : '',
+    estate.furnishing_name || '',
+    estate.build_type_name || '',
+  ].filter(Boolean).join(' · ');
+
   overlay.querySelector('.modal-content').innerHTML = `
     ${photos ? `<div style="display:grid;gap:0.5rem;margin-bottom:1.5rem;">${photos}</div>` : ''}
-    <div class="property-card-type">${escHtml(estate.listing_type || '')}</div>
-    <h2 style="font-size:var(--text-2xl);font-weight:700;margin:0.5rem 0 1rem;">${escHtml(estate.title || 'Имот')}</h2>
-    <div style="font-size:var(--text-3xl);font-weight:800;margin-bottom:1.5rem;">${escHtml(price)}</div>
-    <p style="color:var(--text-secondary);line-height:1.7;margin-bottom:2rem;">${escHtml(estate.description || '')}</p>
+    <div class="property-card-type">${escHtml(estate.listing_type_name || '')}</div>
+    <h2 style="font-size:var(--text-2xl);font-weight:700;margin:0.5rem 0 1rem;">${escHtml(title)}</h2>
+    <div style="font-size:var(--text-3xl);font-weight:800;margin-bottom:0.5rem;">${escHtml(price)}</div>
+    ${details ? `<div style="color:var(--text-secondary);font-size:var(--text-sm);margin-bottom:1.5rem;">${escHtml(details)}</div>` : ''}
+    ${description ? `<p style="color:var(--text-secondary);line-height:1.7;margin-bottom:2rem;">${escHtml(description)}</p>` : ''}
     <hr style="border:none;border-top:1px solid var(--border);margin-bottom:2rem;">
     <h3 style="font-size:var(--text-xl);font-weight:700;margin-bottom:1rem;">Изпратете запитване</h3>
-    <form class="inquiry-form" data-estate="${escHtml(estate.title || 'Имот')}">
+    <form class="inquiry-form" data-estate="${escHtml(title)}">
       <div class="form-group">
         <label class="form-label">Вашето име</label>
         <input type="text" class="form-input" name="name" required placeholder="Иван Иванов">
