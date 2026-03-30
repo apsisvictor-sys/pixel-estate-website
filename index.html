@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Estate — Вашият имот в София</title>
+  <meta name="description" content="Водеща имотна агенция в София. Индивидуален подход, AI технологии и пълна прозрачност при всяка сделка.">
+  <link rel="icon" href="/assets/images/favicon.png">
+  <link rel="stylesheet" href="/assets/css/design-system.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/pages.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a href="/" class="nav-logo"><img src="/assets/images/logo-color-dark.svg" alt="Pixel Estate"></a>
+    <ul class="nav-links">
+      <li><a href="/imoti"   data-i18n="nav.listings">Имоти</a></li>
+      <li><a href="/pazar"   data-i18n="nav.market">Пазарни данни</a></li>
+      <li><a href="/prodaite" data-i18n="nav.sell">Продайте с нас</a></li>
+      <li><a href="/kontakti" data-i18n="nav.contact">Контакти</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="lang-toggle active" data-lang="bg">BG</button>
+      <button class="lang-toggle" data-lang="en">EN</button>
+      <a href="tel:+359886986886" class="btn btn-call" data-i18n="nav.call">Обади се</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="nav-mobile" role="dialog" aria-label="Мобилно меню">
+    <button class="nav-mobile-close btn btn-outline" style="position:absolute;top:1.5rem;right:1.5rem;">✕</button>
+    <a href="/imoti"    data-i18n="nav.listings">Имоти</a>
+    <a href="/pazar"    data-i18n="nav.market">Пазарни данни</a>
+    <a href="/prodaite" data-i18n="nav.sell">Продайте с нас</a>
+    <a href="/kontakti" data-i18n="nav.contact">Контакти</a>
+    <a href="tel:+359886986886" class="btn btn-primary" style="margin-top:1rem;" data-i18n="nav.call">Обади се</a>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero-wrapper">
+    <div class="hero-sticky">
+      <!-- Placeholder until Victor provides video -->
+      <div class="hero-placeholder">
+        <div class="hero-placeholder-inner">
+          <div style="font-size:3rem;margin-bottom:1rem;">✦</div>
+          hero-animation.mp4
+        </div>
+      </div>
+      <!-- <video class="hero-video" muted playsinline preload="auto" src="/assets/video/hero-animation.mp4"></video> -->
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow" data-i18n="hero.eyebrow">Вашият доверен партньор в Sofia</div>
+        <h1 class="hero-title">
+          <span data-i18n="hero.title.1">Намерете вашия</span><br>
+          <span class="gradient-text" data-i18n="hero.title.2">дом в София</span>
+        </h1>
+        <p class="hero-subtitle" data-i18n="hero.subtitle">Технологии, данни и изкуствен интелект в услуга на вашия личен имотен избор.</p>
+        <div class="hero-actions">
+          <a href="/imoti" class="btn btn-primary" data-i18n="hero.cta.primary">Разгледайте имотите</a>
+          <a href="/kontakti" class="btn btn-outline" data-i18n="hero.cta.secondary">Свържете се с нас</a>
+        </div>
+      </div>
+      <div class="hero-scroll-hint">
+        <span>Scroll</span>
+        <div class="hero-scroll-hint-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS BAR -->
+  <section class="section" style="padding-top:var(--space-xl);padding-bottom:var(--space-xl);">
+    <div class="section-inner">
+      <div class="stat-bar">
+        <div class="stat-item">
+          <span class="stat-value gradient-text" data-i18n="stat.1.value">10+</span>
+          <span class="stat-label" data-i18n="stat.1.label">Години опит</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value gradient-text" data-i18n="stat.2.value">500+</span>
+          <span class="stat-label" data-i18n="stat.2.label">Успешни сделки</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value gradient-text" data-i18n="stat.3.value">98%</span>
+          <span class="stat-label" data-i18n="stat.3.label">Доволни клиенти</span>
+        </div>
+        <div class="stat-item" style="margin-left:auto;">
+          <a href="tel:+359886986886" class="btn btn-primary" style="font-size:var(--text-lg);">📞 +359 886 986 886</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED LISTINGS -->
+  <section class="section featured-section">
+    <div class="section-inner">
+      <div class="section-header fade-in">
+        <div>
+          <div class="section-label" data-i18n="featured.label">Актуални оферти</div>
+          <h2 class="section-title" data-i18n="featured.title">Избрани имоти</h2>
+        </div>
+        <a href="/imoti" class="btn btn-outline fade-in" data-i18n="featured.view-all">Всички имоти →</a>
+      </div>
+      <div id="featured-listings"></div>
+    </div>
+  </section>
+
+  <!-- TRUST SECTION -->
+  <section class="section" style="background:var(--bg-secondary);">
+    <div class="section-inner">
+      <div class="section-label fade-in" data-i18n="trust.label">Защо Pixel Estate</div>
+      <h2 class="section-title fade-in" data-i18n="trust.title">Услуга, изградена около вас</h2>
+      <p class="section-subtitle fade-in" style="margin-bottom:var(--space-xl);" data-i18n="trust.subtitle">Не продаваме имоти — изграждаме доверие.</p>
+      <div class="trust-grid">
+        <div class="trust-card fade-in fade-in-delay-1">
+          <div class="trust-card-icon">🎯</div>
+          <h3 class="trust-card-title" data-i18n="trust.1.title">Напълно индивидуален подход</h3>
+          <p class="trust-card-text" data-i18n="trust.1.text">Никакви шаблони. Вслушваме се и намираме решения, съобразени единствено с вашите нужди.</p>
+        </div>
+        <div class="trust-card fade-in fade-in-delay-2">
+          <div class="trust-card-icon">🤖</div>
+          <h3 class="trust-card-title" data-i18n="trust.2.title">Технологии в услуга на хората</h3>
+          <p class="trust-card-text" data-i18n="trust.2.text">AI анализи и пазарни данни в реално време — решенията винаги остават ваши.</p>
+        </div>
+        <div class="trust-card fade-in fade-in-delay-3">
+          <div class="trust-card-icon">🤝</div>
+          <h3 class="trust-card-title" data-i18n="trust.3.title">Прозрачност от началото до края</h3>
+          <p class="trust-card-text" data-i18n="trust.3.text">Без скрити комисионни, без изненади. Ясни условия и ангажимент към резултата.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INQUIRY SECTION -->
+  <section class="section" id="inquiry">
+    <div class="section-inner" style="max-width:600px;">
+      <div class="section-label fade-in" data-i18n="inquiry.label">Свържете се с нас</div>
+      <h2 class="section-title fade-in" data-i18n="inquiry.title">Готови сме да помогнем</h2>
+      <p class="section-subtitle fade-in" style="margin-bottom:var(--space-xl);" data-i18n="inquiry.subtitle">Оставете вашите данни и брокер ще се свърже с вас.</p>
+      <form class="inquiry-form fade-in" id="main-inquiry-form">
+        <div class="form-group">
+          <label class="form-label" data-i18n="form.name">Вашето име</label>
+          <input type="text" class="form-input" name="name" required placeholder="Иван Иванов">
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-i18n="form.phone">Телефон</label>
+          <input type="tel" class="form-input" name="phone" required placeholder="+359 88 ...">
+        </div>
+        <div class="form-group">
+          <label class="form-label" data-i18n="form.message">Съобщение</label>
+          <textarea class="form-textarea" name="message" data-i18n-placeholder="form.message" placeholder="Какво търсите?"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;" data-i18n="form.submit">Изпрати запитване</button>
+        <div class="form-success" data-i18n="form.success"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="/assets/images/logo-color-dark.svg" alt="Pixel Estate">
+          <p data-i18n="footer.tagline">Технологичен подход към личното имотно решение. Sofia, Bulgaria.</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.nav.title">Навигация</h4>
+          <ul>
+            <li><a href="/imoti"    data-i18n="nav.listings">Имоти</a></li>
+            <li><a href="/pazar"    data-i18n="nav.market">Пазарни данни</a></li>
+            <li><a href="/prodaite" data-i18n="nav.sell">Продайте с нас</a></li>
+            <li><a href="/kontakti" data-i18n="nav.contact">Контакти</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.services.title">Услуги</h4>
+          <ul>
+            <li><a href="/imoti" data-i18n="footer.services.buy">Купуване</a></li>
+            <li><a href="/prodaite" data-i18n="footer.services.sell">Продаване</a></li>
+            <li><a href="/imoti" data-i18n="footer.services.rent">Наем</a></li>
+            <li><a href="/imoti" data-i18n="footer.services.lease">Лизинг</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.contact.title">Контакти</h4>
+          <ul>
+            <li><a href="tel:+359886986886">+359 886 986 886</a></li>
+            <li><a href="mailto:info@pixelestate.bg">info@pixelestate.bg</a></li>
+            <li><a href="/kontakti">ул. Димитър Хаджикоцев 98<br>1421 София</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span data-i18n="footer.copyright">© 2026 Pixel Estate. Всички права запазени.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { translations } from '/assets/js/i18n.js';
+    import { initNav, setLang } from '/assets/js/nav.js';
+    import { initHero } from '/assets/js/hero.js';
+    import { initListings } from '/assets/js/listings.js';
+
+    // Make translations available to nav module
+    window.translations = translations;
+
+    initNav();
+    initHero();
+    initListings({ containerId: 'featured-listings', limit: 6 });
+
+    // Fade-in observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Main form submit
+    document.getElementById('main-inquiry-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('[type="submit"]');
+      const successEl = form.querySelector('.form-success');
+      btn.disabled = true;
+      btn.textContent = 'Изпращане...';
+      const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
+      try {
+        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ name: form.name.value, phone: form.phone.value, message: form.message.value }),
+        });
+        if (res.ok) {
+          form.reset();
+          btn.style.display = 'none';
+          successEl.style.display = 'block';
+          successEl.textContent = 'Получихме вашето запитване! Ще се свържем с вас скоро.';
+        }
+      } catch { btn.disabled = false; btn.textContent = 'Изпрати запитване'; }
+    });
+  </script>
+</body>
+</html>

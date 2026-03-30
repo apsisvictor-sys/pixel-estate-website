@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Продайте с нас — Pixel Estate</title>
+  <link rel="icon" href="/assets/images/favicon.png">
+  <link rel="stylesheet" href="/assets/css/design-system.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/pages.css">
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-logo"><img src="/assets/images/logo-color-dark.svg" alt="Pixel Estate"></a>
+    <ul class="nav-links">
+      <li><a href="/imoti"    data-i18n="nav.listings">Имоти</a></li>
+      <li><a href="/pazar"    data-i18n="nav.market">Пазарни данни</a></li>
+      <li><a href="/prodaite" class="active" data-i18n="nav.sell">Продайте с нас</a></li>
+      <li><a href="/kontakti" data-i18n="nav.contact">Контакти</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="lang-toggle active" data-lang="bg">BG</button>
+      <button class="lang-toggle" data-lang="en">EN</button>
+      <a href="tel:+359886986886" class="btn btn-call" data-i18n="nav.call">Обади се</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Меню"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="nav-mobile" role="dialog">
+    <button class="nav-mobile-close btn btn-outline" style="position:absolute;top:1.5rem;right:1.5rem;">✕</button>
+    <a href="/imoti"    data-i18n="nav.listings">Имоти</a>
+    <a href="/pazar"    data-i18n="nav.market">Пазарни данни</a>
+    <a href="/prodaite" data-i18n="nav.sell">Продайте с нас</a>
+    <a href="/kontakti" data-i18n="nav.contact">Контакти</a>
+    <a href="tel:+359886986886" class="btn btn-primary" style="margin-top:1rem;">Обади се</a>
+  </div>
+
+  <div class="sell-hero container">
+    <div class="section-label fade-in" data-i18n="sell.label">Продайте с нас</div>
+    <h1 class="section-title fade-in" style="max-width:700px;" data-i18n="sell.title">Продайте вашия имот умно</h1>
+    <p class="section-subtitle fade-in" data-i18n="sell.subtitle">Пазарен анализ, професионална подготовка и индивидуална стратегия.</p>
+    <div style="margin-top:var(--space-lg);display:flex;gap:var(--space-sm);flex-wrap:wrap;" class="fade-in">
+      <a href="tel:+359886986886" class="btn btn-primary" style="font-size:var(--text-lg);">📞 Обади се за безплатна оценка</a>
+      <a href="#sell-form" class="btn btn-outline">Изпрати запитване</a>
+    </div>
+  </div>
+
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-xl);align-items:start;" class="sell-two-col">
+        <div class="sell-steps">
+          <div class="sell-step fade-in">
+            <div class="sell-step-number">1</div>
+            <div>
+              <div class="sell-step-title" data-i18n="sell.step1.title">Безплатна оценка</div>
+              <div class="sell-step-text" data-i18n="sell.step1.text">Анализираме пазара и вашия имот задълбочено.</div>
+            </div>
+          </div>
+          <div class="sell-step fade-in fade-in-delay-1">
+            <div class="sell-step-number">2</div>
+            <div>
+              <div class="sell-step-title" data-i18n="sell.step2.title">Подготовка и представяне</div>
+              <div class="sell-step-text" data-i18n="sell.step2.text">Фотосесия, обява и разпространение по всички канали.</div>
+            </div>
+          </div>
+          <div class="sell-step fade-in fade-in-delay-2">
+            <div class="sell-step-number">3</div>
+            <div>
+              <div class="sell-step-title" data-i18n="sell.step3.title">Активна работа с купувачите</div>
+              <div class="sell-step-text" data-i18n="sell.step3.text">Управляваме огледите и водим преговорите.</div>
+            </div>
+          </div>
+          <div class="sell-step fade-in fade-in-delay-3">
+            <div class="sell-step-number">4</div>
+            <div>
+              <div class="sell-step-title" data-i18n="sell.step4.title">Юридическа сигурност и финализиране</div>
+              <div class="sell-step-text" data-i18n="sell.step4.text">Координираме целия документален процес до нотариуса.</div>
+            </div>
+          </div>
+        </div>
+        <div id="sell-form" class="fade-in fade-in-delay-1">
+          <div style="background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-xl);padding:var(--space-xl);">
+            <h2 style="font-size:var(--text-2xl);font-weight:700;margin-bottom:var(--space-lg);">Поискайте безплатна оценка</h2>
+            <form class="inquiry-form" id="sell-inquiry-form">
+              <div class="form-group">
+                <label class="form-label">Вашето име</label>
+                <input type="text" class="form-input" name="name" required placeholder="Иван Иванов">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Телефон</label>
+                <input type="tel" class="form-input" name="phone" required placeholder="+359 88 ...">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Адрес или описание на имота</label>
+                <textarea class="form-textarea" name="message" placeholder="кв. Лозенец, 3-стаен апартамент, 85м²..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%;">Изпрати за оценка</button>
+              <div class="form-success"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <a href="/"><img src="/assets/images/logo-color-dark.svg" alt="Pixel Estate" style="height:24px;"></a>
+        <span data-i18n="footer.copyright">© 2026 Pixel Estate.</span>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    @media (max-width: 768px) { .sell-two-col { grid-template-columns: 1fr !important; } }
+  </style>
+
+  <script type="module">
+    import { translations } from '/assets/js/i18n.js';
+    import { initNav } from '/assets/js/nav.js';
+    window.translations = translations;
+    initNav();
+    const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
+    document.getElementById('sell-inquiry-form')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('[type="submit"]');
+      const successEl = form.querySelector('.form-success');
+      btn.disabled = true; btn.textContent = 'Изпращане...';
+      try {
+        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ name: form.name.value, phone: form.phone.value, message: form.message.value, type: 'sell' }),
+        });
+        if (res.ok) { form.reset(); btn.style.display='none'; successEl.style.display='block'; successEl.textContent='Получихме вашето запитване! Ще се свържем с вас скоро.'; }
+      } catch { btn.disabled=false; btn.textContent='Изпрати за оценка'; }
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

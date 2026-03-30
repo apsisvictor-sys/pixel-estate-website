@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Имоти — Pixel Estate</title>
+  <meta name="description" content="Разгледайте всички активни оферти на Pixel Estate в София. Апартаменти, къщи, офиси и парцели.">
+  <link rel="icon" href="/assets/images/favicon.png">
+  <link rel="stylesheet" href="/assets/css/design-system.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/pages.css">
+</head>
+<body>
+  <!-- NAV (same as index.html) -->
+  <nav class="nav">
+    <a href="/" class="nav-logo"><img src="/assets/images/logo-color-dark.svg" alt="Pixel Estate"></a>
+    <ul class="nav-links">
+      <li><a href="/imoti" class="active" data-i18n="nav.listings">Имоти</a></li>
+      <li><a href="/pazar"    data-i18n="nav.market">Пазарни данни</a></li>
+      <li><a href="/prodaite" data-i18n="nav.sell">Продайте с нас</a></li>
+      <li><a href="/kontakti" data-i18n="nav.contact">Контакти</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="lang-toggle active" data-lang="bg">BG</button>
+      <button class="lang-toggle" data-lang="en">EN</button>
+      <a href="tel:+359886986886" class="btn btn-call" data-i18n="nav.call">Обади се</a>
+    </div>
+    <button class="nav-hamburger" aria-label="Меню"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="nav-mobile" role="dialog">
+    <button class="nav-mobile-close btn btn-outline" style="position:absolute;top:1.5rem;right:1.5rem;">✕</button>
+    <a href="/imoti"    data-i18n="nav.listings">Имоти</a>
+    <a href="/pazar"    data-i18n="nav.market">Пазарни данни</a>
+    <a href="/prodaite" data-i18n="nav.sell">Продайте с нас</a>
+    <a href="/kontakti" data-i18n="nav.contact">Контакти</a>
+    <a href="tel:+359886986886" class="btn btn-primary" style="margin-top:1rem;">Обади се</a>
+  </div>
+
+  <!-- HEADER -->
+  <div class="listings-header container">
+    <div class="section-label fade-in" data-i18n="featured.label">Актуални оферти</div>
+    <h1 class="section-title fade-in" data-i18n="featured.title">Избрани имоти</h1>
+  </div>
+
+  <!-- LISTINGS -->
+  <section class="section" style="padding-top:0;">
+    <div class="section-inner">
+      <div id="all-listings"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <a href="/"><img src="/assets/images/logo-color-dark.svg" alt="Pixel Estate" style="height:24px;"></a>
+        <span data-i18n="footer.copyright">© 2026 Pixel Estate.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { translations } from '/assets/js/i18n.js';
+    import { initNav } from '/assets/js/nav.js';
+    import { initListings } from '/assets/js/listings.js';
+    window.translations = translations;
+    initNav();
+    initListings({ containerId: 'all-listings', showFilters: true });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

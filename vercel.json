@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/imoti",   "destination": "/imoti.html" },
+    { "source": "/prodaite","destination": "/prodaite.html" },
+    { "source": "/pazar",   "destination": "/pazar.html" },
+    { "source": "/kontakti","destination": "/kontakti.html" }
+  ]
+}
