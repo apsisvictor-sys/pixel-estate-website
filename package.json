@@ -1,5 +1,10 @@
 {
   "name": "pixel-estate-website",
   "version": "1.0.0",
-  "engines": { "node": "24.x" }
+  "engines": {
+    "node": "24.x"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.37.0"
+  }
 }
