@@ -45,7 +45,8 @@ function renderCards(estates, container) {
     card.className = 'property-card fade-in';
     card.dataset.estateId = estate.uid || estate.code || '';
 
-    const imageUrl = estate.photos?.[0]?.url || null;
+    const rawImageUrl = estate.photos?.[0]?.url || null;
+    const imageUrl = rawImageUrl ? `/api/img?url=${encodeURIComponent(rawImageUrl)}` : null;
     const title = estate.titleBG || estate.titleEN || estate.estate_type_name || 'Имот';
     const imageHTML = imageUrl
       ? `<img class="property-card-image" src="${imageUrl}" alt="${escHtml(title)}" loading="lazy">`
@@ -152,7 +153,7 @@ function openModal(estate) {
   const description = estate.DescriptionShortBG || estate.DescriptionBG || '';
 
   const photos = estate.photos?.slice(0,3).map(p =>
-    `<img src="${p.url}" style="width:100%;border-radius:12px;aspect-ratio:16/9;object-fit:cover;" alt="">`
+    `<img src="/api/img?url=${encodeURIComponent(p.url)}" style="width:100%;border-radius:12px;aspect-ratio:16/9;object-fit:cover;" alt="">`
   ).join('') || '';
 
   const details = [

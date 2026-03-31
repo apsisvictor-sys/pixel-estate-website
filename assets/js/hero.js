@@ -31,11 +31,11 @@ export function initHero() {
       video.currentTime = progress * video.duration;
     }
 
-    // Fade out hero content as scroll progresses past 40%
+    // Fade out hero content as scroll progresses past 80%
     if (heroContent) {
-      const contentOpacity = Math.max(0, 1 - (progress - 0.1) / 0.3);
+      const contentOpacity = progress < 0.8 ? 1 : Math.max(0, 1 - (progress - 0.8) / 0.2);
       heroContent.style.opacity = contentOpacity;
-      heroContent.style.transform = `translateY(${progress * 40}px)`;
+      heroContent.style.transform = `translateY(${Math.max(0, (progress - 0.8)) * 200}px)`;
     }
   }
 
