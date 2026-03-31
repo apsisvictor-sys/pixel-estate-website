@@ -44,14 +44,7 @@
   <!-- HERO -->
   <div class="hero-wrapper">
     <div class="hero-sticky">
-      <!-- Placeholder until Victor provides video -->
-      <div class="hero-placeholder">
-        <div class="hero-placeholder-inner">
-          <div style="font-size:3rem;margin-bottom:1rem;">✦</div>
-          hero-animation.mp4
-        </div>
-      </div>
-      <!-- <video class="hero-video" muted playsinline preload="auto" src="/assets/video/hero-animation.mp4"></video> -->
+      <video class="hero-video" muted playsinline preload="auto" src="/assets/video/hero-animation.mp4"></video>
       <div class="hero-overlay"></div>
       <div class="hero-content">
         <div class="hero-eyebrow" data-i18n="hero.eyebrow">Вашият доверен партньор в Sofia</div>
@@ -228,7 +221,7 @@
       const successEl = form.querySelector('.form-success');
       btn.disabled = true;
       btn.textContent = 'Изпращане...';
-      const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
+      const FORMSPREE_ID = 'xpqorgyw';
       try {
         const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
           method: 'POST',

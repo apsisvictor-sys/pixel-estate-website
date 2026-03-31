@@ -212,7 +212,7 @@ async function handleFormSubmit(e) {
   btn.disabled = true;
   btn.textContent = 'Изпращане...';
 
-  const FORMSPREE_ID = 'YOUR_FORMSPREE_ID'; // Replace with Formspree form ID
+  const FORMSPREE_ID = 'xpqorgyw';
   const body = {
     name:    form.name.value,
     phone:   form.phone.value,
