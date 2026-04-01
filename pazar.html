@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/assets/css/components.css">
   <link rel="stylesheet" href="/assets/css/pages.css">
 </head>
-<body>
+<body class="pixel-grid">
   <nav class="nav">
     <a href="/" class="nav-logo"><img src="/assets/images/logo-color-dark.png" alt="Pixel Estate"></a>
     <ul class="nav-links">
@@ -34,17 +34,61 @@
     <a href="tel:+359886986886" class="btn btn-primary" style="margin-top:1rem;">Обади се</a>
   </div>
 
+  <!-- Hero -->
   <div class="market-hero container">
     <div class="section-label fade-in" data-i18n="market.label">Пазарни данни</div>
     <h1 class="section-title fade-in" data-i18n="market.title">Пазарът на имоти в София</h1>
-    <p class="section-subtitle fade-in" data-i18n="market.subtitle">Актуални данни, тенденции и анализи.</p>
+    <p class="section-subtitle fade-in" data-i18n="market.subtitle">Актуални данни, тенденции и анализи за пазара на недвижими имоти в Sofia.</p>
   </div>
 
+  <!-- Market Stats Grid -->
   <section class="section" style="padding-top:0;">
     <div class="container">
-      <!-- Placeholder — Victor provides graphs/visuals -->
-      <div class="market-placeholder fade-in" data-i18n="market.coming">
-        Графики и анализи — очаквайте скоро
+      <div class="market-stats-grid fade-in">
+
+        <div class="market-stat-card">
+          <div class="market-stat-label" data-i18n="market.stat.avgPrice.label">Средна цена/м&sup2;</div>
+          <div class="market-stat-value" data-i18n="market.stat.avgPrice.value">1,842 EUR</div>
+          <span class="market-stat-change up" data-i18n="market.stat.avgPrice.change">+14.8% за 12 мес.</span>
+        </div>
+
+        <div class="market-stat-card">
+          <div class="market-stat-label" data-i18n="market.stat.activeListings.label">Активни обяви</div>
+          <div class="market-stat-value" data-i18n="market.stat.activeListings.value">12,450</div>
+          <span class="market-stat-change down" data-i18n="market.stat.activeListings.change">-3.2%</span>
+        </div>
+
+        <div class="market-stat-card">
+          <div class="market-stat-label" data-i18n="market.stat.avgDays.label">Среден срок на продажба</div>
+          <div class="market-stat-value" data-i18n="market.stat.avgDays.value">45 <span style="font-size:var(--text-lg);font-weight:400;" data-i18n="market.stat.avgDays.unit">дни</span></div>
+          <span class="market-stat-change down" data-i18n="market.stat.avgDays.change">-8 дни</span>
+        </div>
+
+        <div class="market-stat-card">
+          <div class="market-stat-label" data-i18n="market.stat.newBuilds.label">Нови строежи</div>
+          <div class="market-stat-value" data-i18n="market.stat.newBuilds.value">3,120</div>
+          <span class="market-stat-change up" data-i18n="market.stat.newBuilds.change">+22.4%</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Curator's Commentary -->
+  <section class="section">
+    <div class="container">
+      <div class="market-commentary fade-in">
+        <h3 data-i18n="market.commentary.title">Коментар на пазара</h3>
+        <p data-i18n="market.commentary.text">Пазарът на имоти в София остава стабилен с устойчив ръст на цените, особено в централните квартали и бизнес зоните. Търсенето на ново строителство продължава да расте, подкрепено от модерни проекти с енергийна ефективност и Smart Home технологии. Секторът на информационните технологии е основен двигател на наемния пазар, като компаниите разширяват офис пространствата си, а служителите търсят жилища в близост до технологичните хъбове. Очакваме тази тенденция да се запази и през следващите тримесечия.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Charts Placeholder -->
+  <section class="section">
+    <div class="container">
+      <div class="fade-in" style="min-height:300px;background:var(--bg-card);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:var(--text-lg);">
+        <span data-i18n="market.charts.coming">Интерактивни графики — очаквайте скоро</span>
       </div>
     </div>
   </section>

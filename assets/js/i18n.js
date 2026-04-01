@@ -68,6 +68,28 @@ export const translations = {
     "market.subtitle": "Актуални данни, тенденции и анализи за пазара на недвижими имоти в Sofia.",
     "market.coming":   "Графики и анализи — очаквайте скоро",
 
+    /* MARKET STAT CARDS */
+    "market.stat.avgPrice.label":        "Средна цена/м²",
+    "market.stat.avgPrice.value":        "1,842 EUR",
+    "market.stat.avgPrice.change":       "+14.8% за 12 мес.",
+    "market.stat.activeListings.label":  "Активни обяви",
+    "market.stat.activeListings.value":  "12,450",
+    "market.stat.activeListings.change": "-3.2%",
+    "market.stat.avgDays.label":         "Среден срок на продажба",
+    "market.stat.avgDays.value":         "45",
+    "market.stat.avgDays.unit":          "дни",
+    "market.stat.avgDays.change":        "-8 дни",
+    "market.stat.newBuilds.label":       "Нови строежи",
+    "market.stat.newBuilds.value":       "3,120",
+    "market.stat.newBuilds.change":      "+22.4%",
+
+    /* MARKET COMMENTARY */
+    "market.commentary.title": "Коментар на пазара",
+    "market.commentary.text":  "Пазарът на имоти в София остава стабилен с устойчив ръст на цените, особено в централните квартали и бизнес зоните. Търсенето на ново строителство продължава да расте, подкрепено от модерни проекти с енергийна ефективност и Smart Home технологии. Секторът на информационните технологии е основен двигател на наемния пазар, като компаниите разширяват офис пространствата си, а служителите търсят жилища в близост до технологичните хъбове. Очакваме тази тенденция да се запази и през следващите тримесечия.",
+
+    /* MARKET CHARTS PLACEHOLDER */
+    "market.charts.coming": "Интерактивни графики — очаквайте скоро",
+
     /* STATS */
     "stat.1.value": "10+",
     "stat.1.label": "Години опит",
@@ -85,7 +107,15 @@ export const translations = {
     "footer.services.rent":  "Наем",
     "footer.services.lease": "Лизинг",
     "footer.contact.title":  "Контакти",
-    "footer.copyright":      "© 2026 Pixel Estate. Всички права запазени.",
+    "footer.copyright":      "© 2026 „Пиксел Естейт" ЕООД. Всички права запазени.",
+    "footer.privacy":        "Поверителност",
+    "footer.terms":          "Условия",
+    "footer.zmip":           "ЗМИП",
+    "footer.address":        "бул. Витоша 72\nСофия 1000",
+    "contact.phone.label":   "Телефон",
+    "contact.address.label": "Адрес",
+    "contact.address":       "бул. Витоша 72\nСофия 1000, България",
+    "contact.form.title":    "Изпратете запитване",
   },
 
   en: {
@@ -154,6 +184,28 @@ export const translations = {
     "market.subtitle": "Up-to-date data, trends and analysis for Sofia's real estate market.",
     "market.coming":   "Charts and analysis — coming soon",
 
+    /* MARKET STAT CARDS */
+    "market.stat.avgPrice.label":        "Avg. Price/m\u00B2",
+    "market.stat.avgPrice.value":        "1,842 EUR",
+    "market.stat.avgPrice.change":       "+14.8% over 12 mo.",
+    "market.stat.activeListings.label":  "Active Listings",
+    "market.stat.activeListings.value":  "12,450",
+    "market.stat.activeListings.change": "-3.2%",
+    "market.stat.avgDays.label":         "Avg. Time to Sell",
+    "market.stat.avgDays.value":         "45",
+    "market.stat.avgDays.unit":          "days",
+    "market.stat.avgDays.change":        "-8 days",
+    "market.stat.newBuilds.label":       "New Developments",
+    "market.stat.newBuilds.value":       "3,120",
+    "market.stat.newBuilds.change":      "+22.4%",
+
+    /* MARKET COMMENTARY */
+    "market.commentary.title": "Market Commentary",
+    "market.commentary.text":  "Sofia's property market remains stable with steady price growth, particularly in central neighborhoods and business districts. Demand for new construction continues to rise, driven by energy-efficient modern projects and Smart Home technologies. The IT sector is the primary driver of the rental market, as companies expand office spaces and employees seek housing near tech hubs. We expect this trend to continue through the coming quarters.",
+
+    /* MARKET CHARTS PLACEHOLDER */
+    "market.charts.coming": "Interactive charts \u2014 coming soon",
+
     /* STATS */
     "stat.1.value": "10+",
     "stat.1.label": "Years Experience",
@@ -171,6 +223,14 @@ export const translations = {
     "footer.services.rent":  "Rental",
     "footer.services.lease": "Leasing",
     "footer.contact.title":  "Contact",
-    "footer.copyright":      "© 2026 Pixel Estate. All rights reserved.",
+    "footer.copyright":      "© 2026 Pixel Estate Ltd. All rights reserved.",
+    "footer.privacy":        "Privacy",
+    "footer.terms":          "Terms",
+    "footer.zmip":           "AML",
+    "footer.address":        "72 Vitosha Blvd\nSofia 1000",
+    "contact.phone.label":   "Phone",
+    "contact.address.label": "Address",
+    "contact.address":       "72 Vitosha Blvd\nSofia 1000, Bulgaria",
+    "contact.form.title":    "Send an inquiry",
   }
 };

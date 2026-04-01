@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/assets/css/components.css">
   <link rel="stylesheet" href="/assets/css/pages.css">
 </head>
-<body>
+<body class="pixel-grid">
   <nav class="nav">
     <a href="/" class="nav-logo"><img src="/assets/images/logo-color-dark.png" alt="Pixel Estate"></a>
     <ul class="nav-links">
@@ -43,49 +43,62 @@
   <section class="section" style="padding-top:0;">
     <div class="container">
       <div class="contact-grid">
-        <div class="contact-info fade-in">
-          <div class="contact-info-item">
-            <div class="contact-info-icon">📞</div>
+        <div class="contact-info fade-in" style="display:flex;flex-direction:column;gap:var(--space-sm);">
+
+          <div class="contact-icon-card">
+            <div class="contact-icon-square">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
             <div>
-              <div class="contact-info-label">Телефон</div>
+              <div class="contact-info-label" data-i18n="contact.phone.label">Телефон</div>
               <a href="tel:+359886986886" class="contact-info-value">+359 886 986 886</a>
             </div>
           </div>
-          <div class="contact-info-item">
-            <div class="contact-info-icon">✉️</div>
+
+          <div class="contact-icon-card">
+            <div class="contact-icon-square">
+              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
             <div>
               <div class="contact-info-label">Email</div>
               <a href="mailto:info@pixelestate.bg" class="contact-info-value">info@pixelestate.bg</a>
             </div>
           </div>
-          <div class="contact-info-item">
-            <div class="contact-info-icon">📍</div>
+
+          <div class="contact-icon-card">
+            <div class="contact-icon-square">
+              <svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
             <div>
-              <div class="contact-info-label">Адрес</div>
-              <span class="contact-info-value">ул. Димитър Хаджикоцев 98<br>1421 София, България</span>
+              <div class="contact-info-label" data-i18n="contact.address.label">Адрес</div>
+              <span class="contact-info-value" data-i18n="contact.address">бул. Витоша 72<br>София 1000, България</span>
             </div>
           </div>
-          <a href="tel:+359886986886" class="btn btn-primary" style="width:fit-content;font-size:var(--text-lg);padding:1rem 2rem;">
-            📞 Обади се сега
+
+          <a href="tel:+359886986886" class="btn btn-primary" style="width:fit-content;font-size:var(--text-lg);padding:1rem 2rem;margin-top:var(--space-sm);">
+            Обади се сега
           </a>
         </div>
         <div class="fade-in fade-in-delay-1">
-          <form class="inquiry-form" id="contact-form">
-            <div class="form-group">
-              <label class="form-label" data-i18n="form.name">Вашето име</label>
-              <input type="text" class="form-input" name="name" required placeholder="Иван Иванов">
-            </div>
-            <div class="form-group">
-              <label class="form-label" data-i18n="form.phone">Телефон</label>
-              <input type="tel" class="form-input" name="phone" required placeholder="+359 88 ...">
-            </div>
-            <div class="form-group">
-              <label class="form-label" data-i18n="form.message">Съобщение</label>
-              <textarea class="form-textarea" name="message" placeholder="Как можем да помогнем?"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;" data-i18n="form.submit">Изпрати запитване</button>
-            <div class="form-success" data-i18n="form.success"></div>
-          </form>
+          <div style="background:var(--bg-card);border-radius:var(--radius-xl);padding:var(--space-xl);">
+            <h2 style="font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;margin-bottom:var(--space-lg);" data-i18n="contact.form.title">Изпратете запитване</h2>
+            <form class="inquiry-form" id="contact-form">
+              <div class="form-group">
+                <label class="form-label" data-i18n="form.name">Вашето име</label>
+                <input type="text" class="form-input" name="name" required placeholder="Иван Иванов">
+              </div>
+              <div class="form-group">
+                <label class="form-label" data-i18n="form.phone">Телефон</label>
+                <input type="tel" class="form-input" name="phone" required placeholder="+359 88 ...">
+              </div>
+              <div class="form-group">
+                <label class="form-label" data-i18n="form.message">Съобщение</label>
+                <textarea class="form-textarea" name="message" placeholder="Как можем да помогнем?"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" style="width:100%;" data-i18n="form.submit">Изпрати запитване</button>
+              <div class="form-success" data-i18n="form.success"></div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -94,8 +107,12 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-bottom">
-        <a href="/"><img src="/assets/images/logo-color-dark.png" alt="Pixel Estate" style="height:24px;"></a>
-        <span data-i18n="footer.copyright">© 2026 Pixel Estate.</span>
+        <span data-i18n="footer.copyright">© 2026 „Пиксел Естейт" ЕООД. Всички права запазени.</span>
+        <div class="footer-legal">
+          <a href="/privacy" data-i18n="footer.privacy">Поверителност</a>
+          <a href="/terms" data-i18n="footer.terms">Условия</a>
+          <a href="/zmip" data-i18n="footer.zmip">ЗМИП</a>
+        </div>
       </div>
     </div>
   </footer>
