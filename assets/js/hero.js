@@ -23,7 +23,7 @@ export function initHero() {
     if (video) {
       const poster = document.createElement('img');
       poster.className = 'hero-video';
-      poster.src = '/assets/images/hero-poster.jpg';
+      poster.src = '/assets/images/hero-poster-last.jpg';
       poster.alt = 'Pixel Estate';
       poster.style.cssText = 'transition:transform 0.1s linear;';
       video.replaceWith(poster);
@@ -58,8 +58,7 @@ export function initHero() {
   video.playsInline = true;
   video.pause();
 
-  // Add poster for faster initial paint
-  video.poster = '/assets/images/hero-poster.jpg';
+  // Poster is set in HTML (first frame)
 
   function onScroll() {
     const wrapperRect = heroWrapper.getBoundingClientRect();
