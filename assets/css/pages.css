@@ -121,6 +121,7 @@
 }
 
 @media (max-width: 768px) {
+  .hero-wrapper { height: 180vh; }
   .hero-title { font-size: var(--text-4xl); }
   .hero-content { bottom: var(--space-xl); }
 }
