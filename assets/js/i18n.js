@@ -107,7 +107,7 @@ export const translations = {
     "footer.services.rent":  "Наем",
     "footer.services.lease": "Лизинг",
     "footer.contact.title":  "Контакти",
-    "footer.copyright":      "© 2026 „Пиксел Естейт" ЕООД. Всички права запазени.",
+    "footer.copyright":      "© 2026 Пиксел Естейт ЕООД. Всички права запазени.",
     "footer.privacy":        "Поверителност",
     "footer.terms":          "Условия",
     "footer.zmip":           "ЗМИП",
