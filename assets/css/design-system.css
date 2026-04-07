@@ -83,6 +83,8 @@ h1, h2, h3, .hero-title, .section-title, .trust-card-title, .sell-step-title,
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: none;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
 }
 
 /* Gradient border utility — uses ghost border approach */
