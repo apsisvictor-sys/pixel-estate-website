@@ -4,16 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Пазарни данни — Pixel Estate</title>
+  <meta name="description" content="Актуални статистики, графики и анализи за пазара на недвижими имоти в София. Цени, сделки, ипотеки, наеми.">
   <link rel="icon" href="/assets/images/favicon.png">
   <link rel="stylesheet" href="/assets/css/design-system.css">
   <link rel="stylesheet" href="/assets/css/components.css">
   <link rel="stylesheet" href="/assets/css/pages.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 </head>
 <body class="pixel-grid">
   <nav class="nav">
     <a href="/" class="nav-logo"><img src="/assets/images/logo-color-dark.png" alt="Pixel Estate"></a>
     <ul class="nav-links">
-      <li><a href="/imoti"    data-i18n="nav.listings">Имоти</a></li>
+      <li><a href="/imoti" data-i18n="nav.listings">Имоти</a></li>
       <li><a href="/pazar" class="active" data-i18n="nav.market">Пазарни данни</a></li>
       <li><a href="/prodaite" data-i18n="nav.sell">Продайте с нас</a></li>
       <li><a href="/kontakti" data-i18n="nav.contact">Контакти</a></li>
@@ -26,9 +28,9 @@
     <button class="nav-hamburger" aria-label="Меню"><span></span><span></span><span></span></button>
   </nav>
   <div class="nav-mobile" role="dialog">
-    <button class="nav-mobile-close btn btn-outline" style="position:absolute;top:1.5rem;right:1.5rem;">✕</button>
-    <a href="/imoti"    data-i18n="nav.listings">Имоти</a>
-    <a href="/pazar"    data-i18n="nav.market">Пазарни данни</a>
+    <button class="nav-mobile-close btn btn-outline" style="position:absolute;top:1.5rem;right:1.5rem;">&#10005;</button>
+    <a href="/imoti" data-i18n="nav.listings">Имоти</a>
+    <a href="/pazar" data-i18n="nav.market">Пазарни данни</a>
     <a href="/prodaite" data-i18n="nav.sell">Продайте с нас</a>
     <a href="/kontakti" data-i18n="nav.contact">Контакти</a>
     <a href="tel:+359886986886" class="btn btn-primary" style="margin-top:1rem;">Обади се</a>
@@ -38,57 +40,303 @@
   <div class="market-hero container">
     <div class="section-label fade-in" data-i18n="market.label">Пазарни данни</div>
     <h1 class="section-title fade-in" data-i18n="market.title">Пазарът на имоти в София</h1>
-    <p class="section-subtitle fade-in" data-i18n="market.subtitle">Актуални данни, тенденции и анализи за пазара на недвижими имоти в Sofia.</p>
+    <p class="section-subtitle fade-in" style="margin:0 auto;" data-i18n="market.subtitle">Актуални данни, тенденции и анализи за пазара на недвижими имоти в София. Обновено Q1 2026.</p>
   </div>
 
-  <!-- Market Stats Grid -->
-  <section class="section" style="padding-top:0;">
-    <div class="container">
-      <div class="market-stats-grid fade-in">
-
-        <div class="market-stat-card">
-          <div class="market-stat-label" data-i18n="market.stat.avgPrice.label">Средна цена/м&sup2;</div>
-          <div class="market-stat-value" data-i18n="market.stat.avgPrice.value">1,842 EUR</div>
-          <span class="market-stat-change up" data-i18n="market.stat.avgPrice.change">+14.8% за 12 мес.</span>
-        </div>
-
-        <div class="market-stat-card">
-          <div class="market-stat-label" data-i18n="market.stat.activeListings.label">Активни обяви</div>
-          <div class="market-stat-value" data-i18n="market.stat.activeListings.value">12,450</div>
-          <span class="market-stat-change down" data-i18n="market.stat.activeListings.change">-3.2%</span>
-        </div>
-
-        <div class="market-stat-card">
-          <div class="market-stat-label" data-i18n="market.stat.avgDays.label">Среден срок на продажба</div>
-          <div class="market-stat-value" data-i18n="market.stat.avgDays.value">45 <span style="font-size:var(--text-lg);font-weight:400;" data-i18n="market.stat.avgDays.unit">дни</span></div>
-          <span class="market-stat-change down" data-i18n="market.stat.avgDays.change">-8 дни</span>
-        </div>
-
-        <div class="market-stat-card">
-          <div class="market-stat-label" data-i18n="market.stat.newBuilds.label">Нови строежи</div>
-          <div class="market-stat-value" data-i18n="market.stat.newBuilds.value">3,120</div>
-          <span class="market-stat-change up" data-i18n="market.stat.newBuilds.change">+22.4%</span>
-        </div>
-
+  <!-- Buy / Rent Toggle -->
+  <section class="section" style="padding-top:0;padding-bottom:0;">
+    <div class="container" style="display:flex;justify-content:center;">
+      <div class="listings-toggle fade-in" id="market-toggle">
+        <button class="listings-toggle-btn active" data-tab="buy" data-i18n="market.toggle.buy">Покупка</button>
+        <button class="listings-toggle-btn" data-tab="rent" data-i18n="market.toggle.rent">Наем</button>
       </div>
     </div>
   </section>
 
-  <!-- Curator's Commentary -->
-  <section class="section">
-    <div class="container">
-      <div class="market-commentary fade-in">
-        <h3 data-i18n="market.commentary.title">Коментар на пазара</h3>
-        <p data-i18n="market.commentary.text">Пазарът на имоти в София остава стабилен с устойчив ръст на цените, особено в централните квартали и бизнес зоните. Търсенето на ново строителство продължава да расте, подкрепено от модерни проекти с енергийна ефективност и Smart Home технологии. Секторът на информационните технологии е основен двигател на наемния пазар, като компаниите разширяват офис пространствата си, а служителите търсят жилища в близост до технологичните хъбове. Очакваме тази тенденция да се запази и през следващите тримесечия.</p>
-      </div>
-    </div>
-  </section>
+  <!-- ══════════════════════════════════════════════ -->
+  <!--                   BUY TAB                      -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div id="tab-buy">
 
-  <!-- Charts Placeholder -->
+    <!-- KPI Cards -->
+    <section class="section" style="padding-top:var(--space-sm);padding-bottom:var(--space-sm);">
+      <div class="container">
+        <div class="market-stats-grid fade-in">
+          <div class="market-stat-card">
+            <div class="market-stat-label" data-i18n="market.buy.avgPrice.label">Средна цена/м&sup2;</div>
+            <div class="market-stat-value kpi-counter" data-target="2685">0</div>
+            <div><span class="market-stat-unit">EUR/м&sup2;</span> <span class="market-stat-change up">+14.3% г/г</span></div>
+          </div>
+          <div class="market-stat-card">
+            <div class="market-stat-label" data-i18n="market.buy.deals.label">Сделки Q1 2026</div>
+            <div class="market-stat-value kpi-counter" data-target="7529">0</div>
+            <div><span class="market-stat-change down">-12.3% г/г</span></div>
+          </div>
+          <div class="market-stat-card">
+            <div class="market-stat-label" data-i18n="market.buy.mortgage.label">Ипотечен лихвен %</div>
+            <div class="market-stat-value"><span class="kpi-counter" data-target="2.9" data-decimals="1">0</span>%</div>
+            <div><span class="market-stat-unit">ГПР</span> <span class="market-stat-change down">-0.4 пп.</span></div>
+          </div>
+          <div class="market-stat-card">
+            <div class="market-stat-label" data-i18n="market.buy.newBuilds.label">Нови жилища (София)</div>
+            <div class="market-stat-value kpi-counter" data-target="2821">0</div>
+            <div><span class="market-stat-unit">Q4 2025</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hero chart: Transactions (full width) -->
+    <section class="section" style="padding-top:var(--space-sm);padding-bottom:var(--space-sm);">
+      <div class="container">
+        <div class="chart-section fade-in">
+          <div class="chart-header">
+            <h2 class="chart-title" data-i18n="market.buy.transactions.title">Сделки с имоти в София</h2>
+            <p class="chart-subtitle" data-i18n="market.buy.transactions.subtitle">Тримесечни данни за вписани сделки и дял на ипотечните покупки</p>
+          </div>
+          <div class="chart-wrapper chart-wrapper--tall">
+            <canvas id="transactionsChart"></canvas>
+          </div>
+          <div class="chart-insight">
+            <div class="insight-badge" data-i18n="market.insight">Анализ</div>
+            <p data-i18n="market.buy.transactions.insight">Q1 2026 показва спад от 12.3% спрямо година по-рано, но цените остават стабилни. 65% от сделките са с ипотечно финансиране, което сочи за устойчиво търсене от реални купувачи, а не спекулативен капитал. Сезонният спад е типичен за първо тримесечие.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Row 1: Price Evolution + Prices by Type -->
+    <section class="section" style="padding-top:var(--space-sm);padding-bottom:var(--space-sm);">
+      <div class="container">
+        <div class="chart-grid">
+          <div class="chart-section fade-in">
+            <div class="chart-header">
+              <h2 class="chart-title" data-i18n="market.buy.priceEvolution.title">Ценова динамика 2015 &ndash; 2025</h2>
+              <p class="chart-subtitle" data-i18n="market.buy.priceEvolution.subtitle">Средна цена на квадратен метър в София (EUR)</p>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="priceEvolutionChart"></canvas>
+            </div>
+            <div class="chart-insight">
+              <div class="insight-badge" data-i18n="market.insight">Анализ</div>
+              <p data-i18n="market.buy.priceEvolution.insight">Цените в София са нараснали над 3 пъти за 10 години &mdash; от 715 EUR/м&sup2; през 2015 до 2,350 EUR/м&sup2; през 2025. Най-силният ръст е след 2021 г., движен от високата инфлация, исторически ниските лихви, разширяването на ИТ сектора и ограниченото предлагане в централните квартали.</p>
+            </div>
+          </div>
+          <div class="chart-section fade-in">
+            <div class="chart-header">
+              <h2 class="chart-title" data-i18n="market.buy.priceType.title">Средни цени по тип имот</h2>
+              <p class="chart-subtitle" data-i18n="market.buy.priceType.subtitle">Обща цена и цена на м&sup2; за апартаменти в София, Q1 2026</p>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="priceTypeChart"></canvas>
+            </div>
+            <div class="chart-insight">
+              <div class="insight-badge" data-i18n="market.insight">Анализ</div>
+              <p data-i18n="market.buy.priceType.insight">Цената на м&sup2; е забележително еднаква (2,660&ndash;2,712 EUR) независимо от размера на имота. Разликата идва от квадратурата: тристаен апартамент струва средно 312,000 EUR &mdash; 2.4 пъти повече от едностаен. За инвеститори: по-малките апартаменти носят по-висока наемна доходност.</p>
+            </div>
+          </div>
+          <div class="chart-section fade-in">
+            <div class="chart-header">
+              <h2 class="chart-title" data-i18n="market.buy.neighborhoods.title">Топ 10 квартали по цена</h2>
+              <p class="chart-subtitle" data-i18n="market.buy.neighborhoods.subtitle">Средна цена на м&sup2; (EUR), април 2026</p>
+            </div>
+            <div class="chart-wrapper chart-wrapper--tall">
+              <canvas id="neighborhoodsChart"></canvas>
+            </div>
+            <div class="chart-insight">
+              <div class="insight-badge" data-i18n="market.insight">Анализ</div>
+              <p data-i18n="market.buy.neighborhoods.insight">Премиум кварталите командват цени 2&times; над средните за София. Докторски паметник води с близо 6,000 EUR/м&sup2;, следван от Изгрев и Южен парк. Центърът не е най-скъпият &mdash; тихите жилищни квартали с паркове и ниско строителство са предпочитани от купувачите с висок бюджет.</p>
+            </div>
+          </div>
+          <div class="chart-section fade-in">
+            <div class="chart-header" style="text-align:center;">
+              <h2 class="chart-title">Финансиране на сделките Q1 2026</h2>
+              <p class="chart-subtitle">Разпределение: ипотека vs. собствени средства</p>
+            </div>
+            <div class="chart-wrapper" style="display:flex;align-items:center;justify-content:center;">
+              <canvas id="financingPieChart"></canvas>
+            </div>
+            <div class="chart-insight">
+              <div class="insight-badge" data-i18n="market.insight">Анализ</div>
+              <p>65% от сделките в София са с ипотечно финансиране при рекордно ниски лихви от 2.9% ГПР. Високият дял на ипотеките показва реално търсене от купувачи на собствено жилище, а не спекулативен капитал.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Row 3: Mortgage Rates + New Construction -->
+    <section class="section" style="padding-top:var(--space-sm);padding-bottom:var(--space-sm);">
+      <div class="container">
+        <div class="chart-grid">
+          <div class="chart-section fade-in">
+            <div class="chart-header">
+              <h2 class="chart-title">Ипотечни лихви (ГПР)</h2>
+              <p class="chart-subtitle">Годишен процент на разходите за жилищни кредити в EUR</p>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="mortgageRatesChart"></canvas>
+            </div>
+            <div class="chart-insight">
+              <div class="insight-badge" data-i18n="market.insight">Анализ</div>
+              <p>Ипотечните лихви в България достигнаха исторически дъна &mdash; 2.9% ГПР в края на 2025. За сравнение: средната за еврозоната е 3.5&ndash;4%. Ниските лихви са основен фактор за ръста на цените, като правят покупката на жилище по-достъпна дори при по-високи цени.</p>
+            </div>
+          </div>
+          <div class="chart-section fade-in">
+            <div class="chart-header">
+              <h2 class="chart-title" data-i18n="market.buy.construction.title">Ново строителство в София</h2>
+              <p class="chart-subtitle" data-i18n="market.buy.construction.subtitle">Въведени в експлоатация жилища и сгради, по тримесечия</p>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="constructionChart"></canvas>
+            </div>
+            <div class="chart-insight">
+              <div class="insight-badge" data-i18n="market.insight">Анализ</div>
+              <p data-i18n="market.buy.construction.insight">Q4 2025 бе рекордно тримесечие с 2,821 нови жилища (284 сгради) в София. Въпреки ръста на строителството, предлагането не успява да задоволи търсенето в предпочитаните квартали, което поддържа ценовия натиск нагоре.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Market Commentary -->
+    <section class="section" style="padding-top:var(--space-sm);">
+      <div class="container">
+        <div class="market-commentary fade-in">
+          <h3 data-i18n="market.buy.commentary.title">Коментар на пазара &mdash; Q1 2026</h3>
+          <p data-i18n="market.buy.commentary.text">Пазарът на имоти в София остава стабилен с устойчив ръст на цените, особено в централните квартали и бизнес зоните. Въпреки спада в броя на сделките с 12% спрямо година по-рано, цените не показват признаци на корекция &mdash; по-скоро отразяват нормализация след рекордната 2025 година. Ипотечните лихви остават исторически ниски (2.9% ГПР), което поддържа достъпността. Секторът на информационните технологии продължава да бъде основен двигател, а новото строителство не успява да задоволи търсенето в предпочитаните квартали.</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /tab-buy -->
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!--                  RENT TAB                      -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div id="tab-rent" style="display:none;">
+
+    <!-- Rent KPI Cards -->
+    <section class="section" style="padding-top:var(--space-sm);padding-bottom:var(--space-sm);">
+      <div class="container">
+        <div class="market-stats-grid market-stats-grid--3 fade-in">
+          <div class="market-stat-card">
+            <div class="market-stat-label" data-i18n="market.rent.oneRoom.label">Едностаен наем</div>
+            <div class="market-stat-value kpi-counter" data-target="450">0</div>
+            <div><span class="market-stat-unit">EUR/мес.</span></div>
+          </div>
+          <div class="market-stat-card">
+            <div class="market-stat-label" data-i18n="market.rent.twoRoom.label">Двустаен наем</div>
+            <div class="market-stat-value kpi-counter" data-target="620">0</div>
+            <div><span class="market-stat-unit">EUR/мес.</span></div>
+          </div>
+          <div class="market-stat-card">
+            <div class="market-stat-label" data-i18n="market.rent.threeRoom.label">Тристаен наем</div>
+            <div class="market-stat-value kpi-counter" data-target="780">0</div>
+            <div><span class="market-stat-unit">EUR/мес.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Row 1: Rent Evolution + Rent by Type Doughnut -->
+    <section class="section" style="padding-top:var(--space-sm);padding-bottom:var(--space-sm);">
+      <div class="container">
+        <div class="chart-grid">
+          <div class="chart-section fade-in">
+            <div class="chart-header">
+              <h2 class="chart-title">Динамика на наемите 2017 &ndash; 2026</h2>
+              <p class="chart-subtitle">Среден месечен наем за двустаен апартамент в София (EUR)</p>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="rentEvolutionChart"></canvas>
+            </div>
+            <div class="chart-insight">
+              <div class="insight-badge" data-i18n="market.insight">Анализ</div>
+              <p>Наемите са се удвоили за 9 години &mdash; от 307 EUR/мес. през 2017 до 620 EUR/мес. през 2026. Най-силният ръст бе в 2023&ndash;2024 (+20%), движен от инфлация, украински бежанци и завръщане към офисите. Ръстът се забавя до 5% г/г в 2025&ndash;2026.</p>
+            </div>
+          </div>
+          <div class="chart-section fade-in">
+            <div class="chart-header">
+              <h2 class="chart-title">Наеми по тип апартамент</h2>
+              <p class="chart-subtitle">Среден месечен наем в София (EUR), 2026</p>
+            </div>
+            <div class="chart-wrapper" style="display:flex;align-items:center;justify-content:center;">
+              <canvas id="rentTypePieChart"></canvas>
+            </div>
+            <div class="chart-insight">
+              <div class="insight-badge" data-i18n="market.insight">Анализ</div>
+              <p>Двустаен апартамент е най-търсеният тип под наем &mdash; балансът между цена и пространство го прави предпочитан от млади професионалисти и двойки. Тристайните привличат семейства с деца и споделени наеми.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Row 2: Rent by Neighborhood + Yield -->
+    <section class="section" style="padding-top:var(--space-sm);padding-bottom:var(--space-sm);">
+      <div class="container">
+        <div class="chart-grid">
+          <div class="chart-section fade-in">
+            <div class="chart-header">
+              <h2 class="chart-title" data-i18n="market.rent.neighborhoods.title">Наеми по квартал</h2>
+              <p class="chart-subtitle" data-i18n="market.rent.neighborhoods.subtitle">Средна цена EUR/м&sup2;/месец, април 2026</p>
+            </div>
+            <div class="chart-wrapper chart-wrapper--tall">
+              <canvas id="rentNeighborhoodsChart"></canvas>
+            </div>
+            <div class="chart-insight">
+              <div class="insight-badge" data-i18n="market.insight">Анализ</div>
+              <p data-i18n="market.rent.neighborhoods.insight">ПЗ Хладилника и Докторски паметник водят с над 11 EUR/м&sup2;/мес., а Център и Лозенец са устойчиво над 10 EUR. За апартамент от 60 м&sup2; това означава 650&ndash;750 EUR/мес. в премиум кварталите. Кръстова вада изненадва с 11.26 EUR &mdash; новото строителство командва по-високи наеми.</p>
+            </div>
+          </div>
+          <div class="chart-section fade-in">
+            <div class="chart-header">
+              <h2 class="chart-title" data-i18n="market.rent.yield.title">Наемна доходност</h2>
+            </div>
+            <div class="market-stats-grid market-stats-grid--3" style="margin-bottom:var(--space-sm);">
+              <div class="market-stat-card">
+                <div class="market-stat-label" data-i18n="market.rent.yield.center.label">Доходност (център)</div>
+                <div class="market-stat-value"><span class="kpi-counter" data-target="3.9" data-decimals="1">0</span>%</div>
+              </div>
+              <div class="market-stat-card">
+                <div class="market-stat-label" data-i18n="market.rent.yield.outside.label">Доходност (извън център)</div>
+                <div class="market-stat-value"><span class="kpi-counter" data-target="4.3" data-decimals="1">0</span>%</div>
+              </div>
+              <div class="market-stat-card">
+                <div class="market-stat-label" data-i18n="market.rent.yield.growth.label">Ръст на наемите</div>
+                <div class="market-stat-value"><span class="kpi-counter" data-target="5" data-decimals="0">0</span>%</div>
+                <div><span class="market-stat-change up" data-i18n="market.rent.yield.growth.change">г/г 2025&rarr;2026</span></div>
+              </div>
+            </div>
+            <div class="chart-insight">
+              <div class="insight-badge" data-i18n="market.insight">Анализ</div>
+              <p data-i18n="market.rent.yield.insight">Наемната доходност в София е 4&ndash;5%, което е над средното за столиците в ЕС. Доходността извън центъра е малко по-висока, тъй като наемите падат по-бавно от покупните цени. С ръст на наемите от 5% годишно, инвестицията в имот за отдаване под наем остава привлекателна алтернатива на банковите депозити.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rental Commentary & Sources -->
+    <section class="section" style="padding-top:var(--space-sm);">
+      <div class="container">
+        <div class="market-commentary fade-in">
+          <h3 data-i18n="market.rent.commentary.title">Коментар за наемния пазар &mdash; Q1 2026</h3>
+          <p data-i18n="market.rent.commentary.text">Наемният пазар в София продължава да расте, подкрепен от ИТ сектора, чуждестранни специалисти и студенти. Търсенето на двустайни апартаменти в кварталите около бизнес парковете (Младост, Мусагеница, Студентски град) остава особено високо. Новото строителство с Smart Home технологии привлича наематели, готови да плащат 10&ndash;15% повече за модерни жилища. Сезонно очакваме пиково търсене в периода май&ndash;септември.</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /tab-rent -->
+
+  <!-- CTA -->
   <section class="section">
-    <div class="container">
-      <div class="fade-in" style="min-height:300px;background:var(--bg-card);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:var(--text-lg);">
-        <span data-i18n="market.charts.coming">Интерактивни графики — очаквайте скоро</span>
+    <div class="container" style="text-align:center;">
+      <div class="fade-in">
+        <h2 class="section-title" data-i18n="market.cta.title">Имате въпроси за пазара?</h2>
+        <p class="section-subtitle" style="margin:0 auto var(--space-lg);" data-i18n="market.cta.subtitle">Нашите брокери познават всеки квартал. Свържете се за безплатна консултация.</p>
+        <a href="/kontakti" class="btn btn-primary" data-i18n="market.cta.button">Свържете се с нас</a>
       </div>
     </div>
   </section>
@@ -128,7 +376,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span data-i18n="footer.copyright">© 2026 Пиксел Естейт ЕООД. Всички права запазени.</span>
+        <span data-i18n="footer.copyright">&copy; 2026 Пиксел Естейт ЕООД. Всички права запазени.</span>
         <div class="footer-legal">
           <a href="/privacy" data-i18n="footer.privacy">Поверителност</a>
           <a href="/terms" data-i18n="footer.terms">Условия</a>
@@ -143,10 +391,809 @@
     import { initNav } from '/assets/js/nav.js';
     window.translations = translations;
     initNav();
+
+    /* ── Fade-in observer ─────────────────────────── */
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
     }, { threshold: 0.1 });
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    /* ── KPI counter animation ────────────────────── */
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const target = parseFloat(el.dataset.target);
+        const decimals = parseInt(el.dataset.decimals || '0', 10);
+        const duration = 1200;
+        const start = performance.now();
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = target * eased;
+          if (decimals > 0) {
+            el.textContent = current.toFixed(decimals);
+          } else {
+            el.textContent = Math.round(current).toLocaleString('en-US');
+          }
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.kpi-counter').forEach(el => counterObserver.observe(el));
+
+    /* ── Buy/Rent toggle ──────────────────────────── */
+    const toggleBtns = document.querySelectorAll('#market-toggle .listings-toggle-btn');
+    const tabBuy = document.getElementById('tab-buy');
+    const tabRent = document.getElementById('tab-rent');
+    toggleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        toggleBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        if (btn.dataset.tab === 'buy') {
+          tabBuy.style.display = '';
+          tabRent.style.display = 'none';
+        } else {
+          tabBuy.style.display = 'none';
+          tabRent.style.display = '';
+          initRentCharts();
+        }
+      });
+    });
+
+    /* ── Chart.js global config ───────────────────── */
+    Chart.defaults.color = '#a9abb3';
+    Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+    Chart.defaults.font.family = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
+    Chart.defaults.font.size = 13;
+    Chart.defaults.plugins.legend.labels.usePointStyle = true;
+    Chart.defaults.plugins.legend.labels.padding = 20;
+    Chart.defaults.plugins.tooltip.backgroundColor = '#161a21';
+    Chart.defaults.plugins.tooltip.borderColor = 'rgba(255,255,255,0.1)';
+    Chart.defaults.plugins.tooltip.borderWidth = 1;
+    Chart.defaults.plugins.tooltip.cornerRadius = 8;
+    Chart.defaults.plugins.tooltip.padding = 12;
+    Chart.defaults.plugins.tooltip.titleFont = { weight: '600' };
+
+    /* ── DATA ─────────────────────────────────────── */
+    /* QUARTERLY UPDATE: Data sourced Q1 2026. Next update due: July 2026 (Q2 data)
+       Sources: registryagency.bg, nsi.bg, bnb.bg, imot.bg, realistimo.com, alo.bg */
+
+    const DATA = {
+      transactions: {
+        labels: ["Q1 '24","Q2 '24","Q3 '24","Q4 '24","Q1 '25","Q2 '25","Q3 '25","Q4 '25","Q1 '26"],
+        deals:  [7298, 9641, 7879, 10441, 8588, 10647, 9238, 12156, 7529],
+        mortgagePct: [61, 59, 67, 59, 59, 60, 68, 60, 65],
+        mortgage: [4452, 5688, 5279, 6160, 5067, 6388, 6282, 7294, 4894],
+        cash:     [2846, 3953, 2600, 4281, 3521, 4259, 2956, 4862, 2635]
+      },
+      priceEvolution: {
+        labels: ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'],
+        values: [715, 890, 950, 1090, 1111, 1180, 1420, 1600, 1820, 2100, 2350]
+      },
+      priceByType: {
+        labels: ['Едностаен', 'Двустаен', 'Тристаен'],
+        totalPrice: [129855, 195104, 312003],
+        pricePerSqm: [2683, 2712, 2660]
+      },
+      topNeighborhoods: {
+        labels: ['Докторски паметник','Изгрев','Южен парк','Яворов','Изток','Иван Вазов','Мед. академия','Лозенец','ПЗ Хладилника','Оборище'],
+        values: [5838, 4971, 4614, 4319, 4133, 4071, 4008, 3901, 3843, 3821]
+      },
+      rentNeighborhoods: {
+        labels: ['ПЗ Хладилника','Докторски паметник','Кръстова вада','Център','Лозенец','Хладилника','Изгрев','Малинова долина','Манастирски ливади','Драгалевци','Изток','Яворов'],
+        values: [12.52, 11.52, 11.26, 10.90, 10.56, 10.54, 10.40, 10.31, 10.23, 10.19, 10.02, 10.02]
+      },
+      financingSplit: {
+        labels: ['\u0418\u043F\u043E\u0442\u0435\u043A\u0430 (65%)', '\u0421\u043E\u0431\u0441\u0442\u0432\u0435\u043D\u0438 \u0441\u0440\u0435\u0434\u0441\u0442\u0432\u0430 (35%)'],
+        values: [65, 35]
+      },
+      rentEvolution: {
+        labels: ['2017','2018','2019','2020','2021','2022','2023','2024','2025','2026'],
+        values: [307, 350, 336, 340, 355, 390, 450, 540, 590, 620]
+      },
+      rentByType: {
+        labels: ['\u0415\u0434\u043D\u043E\u0441\u0442\u0430\u0435\u043D', '\u0414\u0432\u0443\u0441\u0442\u0430\u0435\u043D', '\u0422\u0440\u0438\u0441\u0442\u0430\u0435\u043D'],
+        values: [450, 620, 780]
+      },
+      mortgageRates: {
+        labels: ['2018','2019','2020','2021','2022','2023','2024','2025'],
+        values: [4.2, 3.8, 3.5, 3.2, 3.0, 2.9, 2.8, 2.9]
+      },
+      newConstruction: {
+        labels: ["Q1 '24","Q2 '24","Q3 '24","Q4 '24","Q1 '25","Q2 '25","Q3 '25","Q4 '25"],
+        dwellings: [2150, 2480, 1890, 2650, 2300, 2560, 2100, 2821],
+        buildings: [195, 230, 175, 245, 210, 240, 190, 284]
+      }
+    };
+
+    /* ── CHART HELPERS ────────────────────────────── */
+    function gradientFill(ctx, colorTop, colorBottom) {
+      const g = ctx.createLinearGradient(0, 0, 0, ctx.canvas.height);
+      g.addColorStop(0, colorTop);
+      g.addColorStop(1, colorBottom);
+      return g;
+    }
+
+    function horizontalBarGradient(ctx) {
+      const g = ctx.createLinearGradient(0, 0, ctx.canvas.width, 0);
+      g.addColorStop(0, 'rgba(124, 77, 255, 0.85)');
+      g.addColorStop(1, 'rgba(0, 212, 236, 0.85)');
+      return g;
+    }
+
+    /* ── BUY CHARTS ───────────────────────────────── */
+
+    // 1. Transactions (3D stacked bar + line combo)
+    // Custom plugin for 3D bar effect
+    const bar3dPlugin = {
+      id: 'bar3d',
+      afterDatasetsDraw: function(chart) {
+        const ctx2 = chart.ctx;
+        const dx = 10, dy = -8; // 3D depth offset
+        // Only process bar datasets (skip line)
+        chart.data.datasets.forEach(function(dataset, dsIndex) {
+          if (dataset.type === 'line') return;
+          const meta = chart.getDatasetMeta(dsIndex);
+          meta.data.forEach(function(bar) {
+            const x = bar.x, y = bar.y, base = bar.base;
+            const w = bar.width;
+            const half = w / 2;
+            const color = dataset.backgroundColor;
+            // Parse color for darker/lighter shades
+            const r = parseInt(color.slice(color.indexOf('(') + 1), 10);
+            // Right side face
+            ctx2.save();
+            ctx2.beginPath();
+            ctx2.moveTo(x + half, y);
+            ctx2.lineTo(x + half + dx, y + dy);
+            ctx2.lineTo(x + half + dx, base + dy);
+            ctx2.lineTo(x + half, base);
+            ctx2.closePath();
+            ctx2.fillStyle = dsIndex === 0 ? 'rgba(80, 40, 200, 0.5)' : 'rgba(0, 150, 170, 0.5)';
+            ctx2.fill();
+            ctx2.restore();
+            // Top face
+            ctx2.save();
+            ctx2.beginPath();
+            ctx2.moveTo(x - half, y);
+            ctx2.lineTo(x - half + dx, y + dy);
+            ctx2.lineTo(x + half + dx, y + dy);
+            ctx2.lineTo(x + half, y);
+            ctx2.closePath();
+            ctx2.fillStyle = dsIndex === 0 ? 'rgba(140, 100, 255, 0.6)' : 'rgba(50, 230, 255, 0.5)';
+            ctx2.fill();
+            ctx2.restore();
+          });
+        });
+        // Draw total labels on top of stacked bars
+        const meta0 = chart.getDatasetMeta(0);
+        meta0.data.forEach(function(bar, i) {
+          const total = DATA.transactions.deals[i];
+          ctx2.save();
+          ctx2.font = "600 11px 'Inter', sans-serif";
+          ctx2.fillStyle = '#ecedf6';
+          ctx2.textAlign = 'center';
+          ctx2.textBaseline = 'bottom';
+          // Find the top of the stack (cash dataset, index 1)
+          const cashBar = chart.getDatasetMeta(1).data[i];
+          ctx2.fillText(total.toLocaleString('en-US'), cashBar.x + 5, cashBar.y - 12);
+          ctx2.restore();
+        });
+      }
+    };
+
+    new Chart(document.getElementById('transactionsChart'), {
+      type: 'bar',
+      data: {
+        labels: DATA.transactions.labels,
+        datasets: [
+          {
+            label: '\u0418\u043F\u043E\u0442\u0435\u043A\u0430',
+            data: DATA.transactions.mortgage,
+            backgroundColor: 'rgba(124, 77, 255, 0.75)',
+            hoverBackgroundColor: 'rgba(124, 77, 255, 0.95)',
+            borderSkipped: false,
+            yAxisID: 'y',
+            order: 3,
+            stack: 'deals'
+          },
+          {
+            label: '\u041A\u0435\u0448',
+            data: DATA.transactions.cash,
+            backgroundColor: 'rgba(0, 212, 236, 0.65)',
+            hoverBackgroundColor: 'rgba(0, 212, 236, 0.9)',
+            borderSkipped: false,
+            yAxisID: 'y',
+            order: 2,
+            stack: 'deals'
+          },
+          {
+            label: '% \u0441 \u0438\u043F\u043E\u0442\u0435\u043A\u0430',
+            data: DATA.transactions.mortgagePct,
+            type: 'line',
+            borderColor: '#FFD54F',
+            backgroundColor: 'transparent',
+            pointBackgroundColor: '#FFD54F',
+            pointBorderColor: '#0b0e14',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            borderWidth: 3,
+            tension: 0.3,
+            fill: false,
+            yAxisID: 'y1',
+            order: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        layout: { padding: { top: 25, right: 10 } },
+        scales: {
+          y: {
+            stacked: true,
+            beginAtZero: true,
+            grid: { color: 'rgba(255,255,255,0.04)' },
+            ticks: { callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'k' : v }
+          },
+          y1: {
+            position: 'right',
+            min: 40,
+            max: 80,
+            grid: { display: false },
+            ticks: { callback: v => v + '%', color: '#FFD54F' }
+          },
+          x: { stacked: true, grid: { display: false } }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(ctx) {
+                if (ctx.dataset.yAxisID === 'y1') return ctx.dataset.label + ': ' + ctx.parsed.y + '%';
+                return ctx.dataset.label + ': ' + ctx.parsed.y.toLocaleString('en-US');
+              },
+              footer: function(items) {
+                const idx = items[0].dataIndex;
+                return '\u041E\u0431\u0449\u043E: ' + DATA.transactions.deals[idx].toLocaleString('en-US');
+              }
+            }
+          },
+          legend: {
+            labels: { usePointStyle: true, padding: 16 }
+          }
+        }
+      },
+      plugins: [bar3dPlugin]
+    });
+
+    // 2. Price Evolution (area line)
+    (function() {
+      const ctx = document.getElementById('priceEvolutionChart').getContext('2d');
+      const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+      gradient.addColorStop(0, 'rgba(0, 212, 236, 0.25)');
+      gradient.addColorStop(1, 'rgba(0, 212, 236, 0.0)');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: DATA.priceEvolution.labels,
+          datasets: [{
+            label: 'EUR/m\u00B2',
+            data: DATA.priceEvolution.values,
+            borderColor: '#00D4EC',
+            backgroundColor: gradient,
+            pointBackgroundColor: '#00D4EC',
+            pointBorderColor: '#0b0e14',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 8,
+            borderWidth: 3,
+            tension: 0.35,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: false,
+              grid: { color: 'rgba(255,255,255,0.04)' },
+              ticks: {
+                callback: v => v.toLocaleString('en-US') + ' \u20AC'
+              }
+            },
+            x: { grid: { display: false } }
+          },
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: ctx => ctx.parsed.y.toLocaleString('en-US') + ' EUR/m\u00B2'
+              }
+            }
+          }
+        }
+      });
+    })();
+
+    // 3. Price by Type (horizontal bar with data labels)
+    (function() {
+      const ctx = document.getElementById('priceTypeChart').getContext('2d');
+      const grad = ctx.createLinearGradient(0, 0, ctx.canvas.width || 500, 0);
+      grad.addColorStop(0, 'rgba(124, 77, 255, 0.8)');
+      grad.addColorStop(1, 'rgba(0, 212, 236, 0.8)');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: DATA.priceByType.labels,
+          datasets: [{
+            label: 'Средна обща цена (EUR)',
+            data: DATA.priceByType.totalPrice,
+            backgroundColor: grad,
+            hoverBackgroundColor: 'rgba(129, 236, 255, 0.9)',
+            borderRadius: 6,
+            borderSkipped: false
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          layout: { padding: { right: 90 } },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.04)' },
+              ticks: { callback: v => (v/1000).toFixed(0) + 'k \u20AC' }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { font: { size: 14, weight: '500' } }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  const total = ctx.parsed.x.toLocaleString('en-US') + ' EUR';
+                  const sqm = DATA.priceByType.pricePerSqm[ctx.dataIndex].toLocaleString('en-US') + ' EUR/m\u00B2';
+                  return [total, sqm];
+                }
+              }
+            }
+          }
+        },
+        plugins: [{
+          id: 'sqmLabels',
+          afterDatasetsDraw: function(chart) {
+            const ctx2 = chart.ctx;
+            chart.getDatasetMeta(0).data.forEach(function(bar, i) {
+              const sqm = DATA.priceByType.pricePerSqm[i].toLocaleString('en-US');
+              ctx2.save();
+              ctx2.font = "600 12px 'Inter', sans-serif";
+              ctx2.fillStyle = '#81ECFF';
+              ctx2.textAlign = 'left';
+              ctx2.textBaseline = 'middle';
+              ctx2.fillText(sqm + ' \u20AC/m\u00B2', bar.x + 8, bar.y);
+              ctx2.restore();
+            });
+          }
+        }]
+      });
+    })();
+
+    // 4. Top Neighborhoods (horizontal bar — purple gradient)
+    (function() {
+      const ctx = document.getElementById('neighborhoodsChart').getContext('2d');
+      const grad = ctx.createLinearGradient(0, 0, ctx.canvas.width || 600, 0);
+      grad.addColorStop(0, 'rgba(90, 40, 200, 0.7)');
+      grad.addColorStop(0.5, 'rgba(124, 77, 255, 0.85)');
+      grad.addColorStop(1, 'rgba(170, 120, 255, 0.9)');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: DATA.topNeighborhoods.labels,
+          datasets: [{
+            label: 'EUR/m\u00B2',
+            data: DATA.topNeighborhoods.values,
+            backgroundColor: grad,
+            hoverBackgroundColor: 'rgba(170, 120, 255, 1)',
+            borderRadius: 6,
+            borderSkipped: false
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.04)' },
+              ticks: { callback: v => v.toLocaleString('en-US') + ' \u20AC' }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { font: { size: 13, weight: '500' } }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => ctx.parsed.x.toLocaleString('en-US') + ' EUR/m\u00B2'
+              }
+            }
+          }
+        }
+      });
+    })();
+
+    // 5. Mortgage Rates (line with gradient)
+    (function() {
+      const ctx = document.getElementById('mortgageRatesChart').getContext('2d');
+      const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+      gradient.addColorStop(0, 'rgba(124, 77, 255, 0.25)');
+      gradient.addColorStop(1, 'rgba(124, 77, 255, 0.0)');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: DATA.mortgageRates.labels,
+          datasets: [{
+            label: '\u0413\u041F\u0420 %',
+            data: DATA.mortgageRates.values,
+            borderColor: '#7C4DFF',
+            backgroundColor: gradient,
+            pointBackgroundColor: '#7C4DFF',
+            pointBorderColor: '#0b0e14',
+            pointBorderWidth: 2,
+            pointRadius: 6,
+            pointHoverRadius: 9,
+            borderWidth: 3,
+            tension: 0.35,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: { min: 2, max: 5, grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { callback: v => v.toFixed(1) + '%' } },
+            x: { grid: { display: false } }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: ctx => ctx.parsed.y.toFixed(1) + '% \u0413\u041F\u0420' } }
+          }
+        },
+        plugins: [{
+          id: 'rateLabels',
+          afterDatasetsDraw: function(chart) {
+            const c = chart.ctx;
+            chart.getDatasetMeta(0).data.forEach(function(pt, i) {
+              c.save();
+              c.font = "600 11px 'Inter', sans-serif";
+              c.fillStyle = '#ecedf6';
+              c.textAlign = 'center';
+              c.textBaseline = 'bottom';
+              c.fillText(DATA.mortgageRates.values[i].toFixed(1) + '%', pt.x, pt.y - 10);
+              c.restore();
+            });
+          }
+        }]
+      });
+    })();
+
+    // 6. Financing Split (doughnut with 3D shadow effect)
+    (function() {
+      const ctx = document.getElementById('financingPieChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: DATA.financingSplit.labels,
+          datasets: [{
+            data: DATA.financingSplit.values,
+            backgroundColor: ['rgba(124, 77, 255, 0.85)', 'rgba(0, 212, 236, 0.7)'],
+            hoverBackgroundColor: ['rgba(140, 100, 255, 1)', 'rgba(50, 230, 255, 1)'],
+            borderColor: '#0b0e14',
+            borderWidth: 3,
+            hoverOffset: 15
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          cutout: '55%',
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { padding: 20, usePointStyle: true, pointStyle: 'rectRounded', font: { size: 13 } }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  const count = ctx.dataIndex === 0 ? '4,894' : '2,635';
+                  return ctx.label + ' \u2014 ' + count + ' \u0441\u0434\u0435\u043B\u043A\u0438';
+                }
+              }
+            }
+          }
+        },
+        plugins: [{
+          id: 'doughnutCenter',
+          beforeDraw: function(chart) {
+            const {ctx: c, width, height} = chart;
+            c.save();
+            c.font = "700 28px 'Space Grotesk', sans-serif";
+            c.fillStyle = '#ecedf6';
+            c.textAlign = 'center';
+            c.textBaseline = 'middle';
+            c.fillText('65%', width / 2, height / 2 - 8);
+            c.font = "500 11px 'Inter', sans-serif";
+            c.fillStyle = '#a9abb3';
+            c.fillText('\u0438\u043F\u043E\u0442\u0435\u043A\u0430', width / 2, height / 2 + 16);
+            c.restore();
+          }
+        }, {
+          id: 'doughnutShadow',
+          beforeDatasetsDraw: function(chart) {
+            const {ctx: c} = chart;
+            c.save();
+            c.shadowColor = 'rgba(124, 77, 255, 0.3)';
+            c.shadowBlur = 20;
+            c.shadowOffsetX = 4;
+            c.shadowOffsetY = 6;
+          },
+          afterDatasetsDraw: function(chart) {
+            chart.ctx.restore();
+          }
+        }]
+      });
+    })();
+
+    // 6. New Construction (bar + line)
+    new Chart(document.getElementById('constructionChart'), {
+      type: 'bar',
+      data: {
+        labels: DATA.newConstruction.labels,
+        datasets: [
+          {
+            label: '\u0416\u0438\u043B\u0438\u0449\u0430',
+            data: DATA.newConstruction.dwellings,
+            backgroundColor: 'rgba(0, 212, 236, 0.7)',
+            hoverBackgroundColor: 'rgba(0, 212, 236, 0.9)',
+            borderRadius: 6,
+            borderSkipped: false,
+            yAxisID: 'y',
+            order: 2
+          },
+          {
+            label: '\u0421\u0433\u0440\u0430\u0434\u0438',
+            data: DATA.newConstruction.buildings,
+            type: 'line',
+            borderColor: '#81ECFF',
+            pointBackgroundColor: '#81ECFF',
+            pointBorderColor: '#0b0e14',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            borderWidth: 2,
+            tension: 0.3,
+            fill: false,
+            yAxisID: 'y1',
+            order: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: { color: 'rgba(255,255,255,0.04)' },
+            ticks: { callback: v => v >= 1000 ? (v/1000).toFixed(1) + 'k' : v }
+          },
+          y1: {
+            position: 'right',
+            beginAtZero: true,
+            grid: { display: false }
+          },
+          x: { grid: { display: false } }
+        }
+      }
+    });
+
+    /* ── RENT CHARTS (lazy init) ──────────────────── */
+    let rentChartsInitialized = false;
+    function initRentCharts() {
+      if (rentChartsInitialized) return;
+      rentChartsInitialized = true;
+
+      // Re-observe fade-ins in rent tab
+      document.querySelectorAll('#tab-rent .fade-in').forEach(el => observer.observe(el));
+      document.querySelectorAll('#tab-rent .kpi-counter').forEach(el => counterObserver.observe(el));
+
+      // Rent Evolution (area line with gradient)
+      (function() {
+        const rctx = document.getElementById('rentEvolutionChart').getContext('2d');
+        const grad = rctx.createLinearGradient(0, 0, 0, 300);
+        grad.addColorStop(0, 'rgba(124, 77, 255, 0.3)');
+        grad.addColorStop(0.5, 'rgba(0, 212, 236, 0.15)');
+        grad.addColorStop(1, 'rgba(0, 212, 236, 0.0)');
+        new Chart(rctx, {
+          type: 'line',
+          data: {
+            labels: DATA.rentEvolution.labels,
+            datasets: [{
+              label: 'EUR/\u043C\u0435\u0441.',
+              data: DATA.rentEvolution.values,
+              borderColor: '#7C4DFF',
+              backgroundColor: grad,
+              pointBackgroundColor: function(ctx) {
+                return ctx.dataIndex >= 6 ? '#FFD54F' : '#7C4DFF';
+              },
+              pointBorderColor: '#0b0e14',
+              pointBorderWidth: 2,
+              pointRadius: 6,
+              pointHoverRadius: 9,
+              borderWidth: 3,
+              tension: 0.35,
+              fill: true
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            layout: { padding: { top: 25 } },
+            scales: {
+              y: {
+                beginAtZero: false,
+                min: 250,
+                max: 700,
+                grid: { color: 'rgba(255,255,255,0.04)' },
+                ticks: { callback: v => v + ' \u20AC' }
+              },
+              x: { grid: { display: false } }
+            },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: ctx => ctx.parsed.y + ' EUR/\u043C\u0435\u0441. (\u0434\u0432\u0443\u0441\u0442\u0430\u0435\u043D)'
+                }
+              }
+            }
+          },
+          plugins: [{
+            id: 'rentLabels',
+            afterDatasetsDraw: function(chart) {
+              const c = chart.ctx;
+              chart.getDatasetMeta(0).data.forEach(function(pt, i) {
+                if (i === 0 || i === DATA.rentEvolution.values.length - 1 || i === 6) {
+                  c.save();
+                  c.font = "600 11px 'Inter', sans-serif";
+                  c.fillStyle = i >= 6 ? '#FFD54F' : '#ecedf6';
+                  c.textAlign = 'center';
+                  c.textBaseline = 'bottom';
+                  c.fillText(DATA.rentEvolution.values[i] + ' \u20AC', pt.x, pt.y - 10);
+                  c.restore();
+                }
+              });
+            }
+          }]
+        });
+      })();
+
+      // Rent by Type (doughnut)
+      (function() {
+        const rctx = document.getElementById('rentTypePieChart').getContext('2d');
+        new Chart(rctx, {
+          type: 'doughnut',
+          data: {
+            labels: DATA.rentByType.labels,
+            datasets: [{
+              data: DATA.rentByType.values,
+              backgroundColor: ['rgba(124, 77, 255, 0.8)', 'rgba(0, 212, 236, 0.75)', 'rgba(129, 236, 255, 0.6)'],
+              hoverBackgroundColor: ['rgba(140, 100, 255, 1)', 'rgba(50, 230, 255, 1)', 'rgba(170, 240, 255, 1)'],
+              borderColor: '#0b0e14',
+              borderWidth: 3,
+              hoverOffset: 12
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            cutout: '50%',
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { padding: 16, usePointStyle: true, pointStyle: 'rectRounded', font: { size: 13 } }
+              },
+              tooltip: {
+                callbacks: {
+                  label: ctx => ctx.label + ': ' + ctx.parsed + ' EUR/\u043C\u0435\u0441.'
+                }
+              }
+            }
+          },
+          plugins: [{
+            id: 'rentTypeLabels',
+            afterDatasetsDraw: function(chart) {
+              const c = chart.ctx;
+              const meta = chart.getDatasetMeta(0);
+              meta.data.forEach(function(arc, i) {
+                const pos = arc.tooltipPosition();
+                c.save();
+                c.font = "700 14px 'Space Grotesk', sans-serif";
+                c.fillStyle = '#ecedf6';
+                c.textAlign = 'center';
+                c.textBaseline = 'middle';
+                c.fillText(DATA.rentByType.values[i] + ' \u20AC', pos.x, pos.y);
+                c.restore();
+              });
+            }
+          }, {
+            id: 'rentDoughnutShadow',
+            beforeDatasetsDraw: function(chart) {
+              chart.ctx.save();
+              chart.ctx.shadowColor = 'rgba(0, 212, 236, 0.25)';
+              chart.ctx.shadowBlur = 18;
+              chart.ctx.shadowOffsetX = 3;
+              chart.ctx.shadowOffsetY = 5;
+            },
+            afterDatasetsDraw: function(chart) { chart.ctx.restore(); }
+          }]
+        });
+      })();
+
+      const ctx = document.getElementById('rentNeighborhoodsChart').getContext('2d');
+      const grad = ctx.createLinearGradient(0, 0, ctx.canvas.width || 600, 0);
+      grad.addColorStop(0, 'rgba(124, 77, 255, 0.8)');
+      grad.addColorStop(1, 'rgba(0, 212, 236, 0.8)');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: DATA.rentNeighborhoods.labels,
+          datasets: [{
+            label: 'EUR/m\u00B2/мес.',
+            data: DATA.rentNeighborhoods.values,
+            backgroundColor: grad,
+            hoverBackgroundColor: 'rgba(129, 236, 255, 0.9)',
+            borderRadius: 6,
+            borderSkipped: false
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              grid: { color: 'rgba(255,255,255,0.04)' },
+              ticks: { callback: v => v.toFixed(1) + ' \u20AC' }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { font: { size: 13, weight: '500' } }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => ctx.parsed.x.toFixed(2) + ' EUR/m\u00B2/мес. (\u2248' + Math.round(ctx.parsed.x * 60) + ' EUR за 60 m\u00B2)'
+              }
+            }
+          }
+        }
+      });
+    }
   </script>
 </body>
 </html>

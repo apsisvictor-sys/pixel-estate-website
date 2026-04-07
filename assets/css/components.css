@@ -232,7 +232,7 @@
 }
 .listings-toggle-btn.active {
   background: var(--gradient);
-  color: #fff;
+  color: #0b0e14;
   box-shadow: 0 0 16px var(--glow-purple);
 }
 .listings-toggle-btn:not(.active):hover {
