@@ -197,7 +197,7 @@
   background: var(--gradient);
   display: flex; align-items: center; justify-content: center;
   font-size: var(--text-xl); font-weight: 800;
-  color: #fff;
+  color: #0b0e14;
   flex-shrink: 0;
 }
 .sell-step-title { font-size: var(--text-xl); font-weight: 700; margin-bottom: 0.5rem; }

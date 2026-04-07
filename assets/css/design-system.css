@@ -128,7 +128,7 @@ h1, h2, h3, .hero-title, .section-title, .trust-card-title, .sell-step-title,
 }
 .btn-primary {
   background: var(--gradient);
-  color: #fff;
+  color: #0b0e14;
   box-shadow: 0 0 20px var(--glow-purple), 0 0 40px var(--glow-cyan);
 }
 .btn-primary:hover {
