@@ -155,6 +155,51 @@
   color: var(--text-muted);
   font-size: var(--text-sm);
 }
+/* Property card badges */
+.property-card-badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+.property-badge {
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+.property-badge--exclusive {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  color: #0b0e14;
+}
+.property-badge--top {
+  background: var(--gradient);
+  color: #0b0e14;
+}
+.property-badge--new {
+  background: rgba(74, 222, 128, 0.9);
+  color: #0b0e14;
+}
+/* Property tags row */
+.property-card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding-top: 0.25rem;
+}
+.property-tag {
+  font-size: 0.6875rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
 .property-card-body { padding: var(--space-md); flex: 1; display: flex; flex-direction: column; gap: var(--space-xs); overflow: hidden; }
 .property-card-type {
   font-size: var(--text-xs);

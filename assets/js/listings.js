@@ -13,6 +13,7 @@ export async function initListings({ containerId, limit = null, showFilters = fa
     if (!res.ok) throw new Error('API error');
     const data = await res.json();
     estates = Array.isArray(data) ? data : (data.properties || data.estates || data.items || []);
+    estates.sort((a, b) => (b.last_change || 0) - (a.last_change || 0));
   } catch (e) {
     container.innerHTML = '<div style="color:var(--text-muted);text-align:center;padding:3rem;">Не може да се зареди. Моля, опитайте отново.</div>';
     return;
@@ -52,9 +53,17 @@ function renderCards(estates, container) {
     const rawImageUrl = estate.photos?.[0]?.url || null;
     const imageUrl = proxyUrl(rawImageUrl);
     const title = estate.titleBG || estate.titleEN || estate.estate_type_name || 'Имот';
+
+    // Badges
+    const badges = [];
+    if (estate.exclusive == 1) badges.push('<span class="property-badge property-badge--exclusive">Ексклузивна</span>');
+    if (estate.top === true || estate.top == 1) badges.push('<span class="property-badge property-badge--top">Топ</span>');
+    if (estate.new_construction == 1 || estate.stage_of_construction > 0) badges.push('<span class="property-badge property-badge--new">Ново</span>');
+    const badgesHTML = badges.length ? `<div class="property-card-badges">${badges.join('')}</div>` : '';
+
     const imageHTML = imageUrl
-      ? `<div style="overflow:hidden;"><img class="property-card-image" src="${imageUrl}" alt="${escHtml(title)}" loading="lazy"></div>`
-      : `<div class="property-card-image-placeholder">Pixel Estate</div>`;
+      ? `<div style="overflow:hidden;position:relative;">${badgesHTML}<img class="property-card-image" src="${imageUrl}" alt="${escHtml(title)}" loading="lazy"></div>`
+      : `<div class="property-card-image-placeholder" style="position:relative;">${badgesHTML}Pixel Estate</div>`;
 
     const price = estate.priceaseur
       ? `${Number(estate.priceaseur).toLocaleString('bg-BG')} EUR`
@@ -62,21 +71,34 @@ function renderCards(estates, container) {
 
     const area = estate.space_m2 || '';
     const rooms = estate.roomsCount || '';
-    const floor = (estate.floor && estate.floor > 0) ? `ет. ${estate.floor}` : '';
+    const bedrooms = estate.bedroomCount || '';
+    const balconies = estate.balconyCount || '';
+    const floorNum = estate.floor > 0 ? estate.floor : '';
+    const floorMax = estate.floor_max > 0 ? estate.floor_max : '';
+    const floorStr = floorNum ? (floorMax ? `ет. ${floorNum}/${floorMax}` : `ет. ${floorNum}`) : '';
     const location = estate.subregion_name || estate.region_name || 'София';
+
+    // Tags
+    const tags = [];
+    if (estate.furnishing_name) tags.push(estate.furnishing_name);
+    if (estate.build_type_name) tags.push(estate.build_type_name);
+    const tagsHTML = tags.length ? `<div class="property-card-tags">${tags.map(t => `<span class="property-tag">${escHtml(t)}</span>`).join('')}</div>` : '';
 
     card.innerHTML = `
       ${imageHTML}
       <div class="property-card-body">
         <div class="property-card-type">${escHtml(estate.listing_type_name || estate.estate_type_name || 'Оферта')}</div>
         <div class="property-card-title">${escHtml(title)}</div>
-        <div class="property-card-location">📍 ${escHtml(location)}</div>
-        <div class="property-card-price">${escHtml(price)} <span>${estate.pricePerM ? `/ ${estate.pricePerM} EUR/м²` : ''}</span></div>
+        <div class="property-card-location">\u{1F4CD} ${escHtml(location)}</div>
+        <div class="property-card-price">${escHtml(price)} <span>${estate.pricePerM > 10 ? `/ ${estate.pricePerM} EUR/\u043C\u00B2` : ''}</span></div>
         <div class="property-card-stats">
-          ${area ? `<div class="property-card-stat"><span class="property-card-stat-value">${escHtml(String(area))} м²</span><span class="property-card-stat-label">Площ</span></div>` : ''}
+          ${area ? `<div class="property-card-stat"><span class="property-card-stat-value">${escHtml(String(area))} \u043C\u00B2</span><span class="property-card-stat-label">Площ</span></div>` : ''}
           ${rooms ? `<div class="property-card-stat"><span class="property-card-stat-value">${escHtml(String(rooms))}</span><span class="property-card-stat-label">Стаи</span></div>` : ''}
-          ${floor ? `<div class="property-card-stat"><span class="property-card-stat-value">${escHtml(floor)}</span><span class="property-card-stat-label">Етаж</span></div>` : ''}
+          ${bedrooms ? `<div class="property-card-stat"><span class="property-card-stat-value">${escHtml(String(bedrooms))}</span><span class="property-card-stat-label">Спални</span></div>` : ''}
+          ${floorStr ? `<div class="property-card-stat"><span class="property-card-stat-value">${escHtml(floorStr)}</span><span class="property-card-stat-label">Етаж</span></div>` : ''}
+          ${balconies ? `<div class="property-card-stat"><span class="property-card-stat-value">${escHtml(String(balconies))}</span><span class="property-card-stat-label">Тераси</span></div>` : ''}
         </div>
+        ${tagsHTML}
       </div>
     `;
 
