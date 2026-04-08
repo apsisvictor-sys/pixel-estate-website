@@ -529,12 +529,13 @@
     /* ── BUY CHARTS ───────────────────────────────── */
 
     // 1. Transactions (3D stacked bar + line combo)
+    const isMobile = window.innerWidth <= 768;
     // Custom plugin for 3D bar effect
     const bar3dPlugin = {
       id: 'bar3d',
       afterDatasetsDraw: function(chart) {
         const ctx2 = chart.ctx;
-        const dx = 10, dy = -8; // 3D depth offset
+        const dx = isMobile ? 5 : 10, dy = isMobile ? -4 : -8; // 3D depth offset
         // Only process bar datasets (skip line)
         chart.data.datasets.forEach(function(dataset, dsIndex) {
           if (dataset.type === 'line') return;
@@ -575,7 +576,7 @@
         meta0.data.forEach(function(bar, i) {
           const total = DATA.transactions.deals[i];
           ctx2.save();
-          ctx2.font = "600 11px 'Inter', sans-serif";
+          ctx2.font = isMobile ? "600 9px 'Inter', sans-serif" : "600 11px 'Inter', sans-serif";
           ctx2.fillStyle = '#ecedf6';
           ctx2.textAlign = 'center';
           ctx2.textBaseline = 'bottom';
@@ -600,7 +601,9 @@
             borderSkipped: false,
             yAxisID: 'y',
             order: 3,
-            stack: 'deals'
+            stack: 'deals',
+            barPercentage: isMobile ? 0.7 : 0.9,
+            categoryPercentage: isMobile ? 0.65 : 0.8
           },
           {
             label: '\u041A\u0435\u0448',
@@ -610,7 +613,9 @@
             borderSkipped: false,
             yAxisID: 'y',
             order: 2,
-            stack: 'deals'
+            stack: 'deals',
+            barPercentage: isMobile ? 0.7 : 0.9,
+            categoryPercentage: isMobile ? 0.65 : 0.8
           },
           {
             label: '% \u0441 \u0438\u043F\u043E\u0442\u0435\u043A\u0430',
@@ -621,9 +626,9 @@
             pointBackgroundColor: '#FFD54F',
             pointBorderColor: '#0b0e14',
             pointBorderWidth: 2,
-            pointRadius: 5,
-            pointHoverRadius: 7,
-            borderWidth: 3,
+            pointRadius: isMobile ? 3 : 5,
+            pointHoverRadius: isMobile ? 5 : 7,
+            borderWidth: isMobile ? 2 : 3,
             tension: 0.3,
             fill: false,
             yAxisID: 'y1',
@@ -635,22 +640,22 @@
         responsive: true,
         maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
-        layout: { padding: { top: 25, right: 10 } },
+        layout: { padding: { top: isMobile ? 15 : 25, right: isMobile ? 5 : 10 } },
         scales: {
           y: {
             stacked: true,
             beginAtZero: true,
             grid: { color: 'rgba(255,255,255,0.04)' },
-            ticks: { callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'k' : v }
+            ticks: { callback: v => v >= 1000 ? (v/1000).toFixed(0) + 'k' : v, font: { size: isMobile ? 9 : 12 } }
           },
           y1: {
             position: 'right',
             min: 40,
             max: 80,
             grid: { display: false },
-            ticks: { callback: v => v + '%', color: '#FFD54F' }
+            ticks: { callback: v => v + '%', color: '#FFD54F', font: { size: isMobile ? 9 : 12 } }
           },
-          x: { stacked: true, grid: { display: false } }
+          x: { stacked: true, grid: { display: false }, ticks: { font: { size: isMobile ? 9 : 12 } } }
         },
         plugins: {
           tooltip: {
@@ -666,7 +671,7 @@
             }
           },
           legend: {
-            labels: { usePointStyle: true, padding: 16 }
+            labels: { usePointStyle: true, padding: isMobile ? 8 : 16, font: { size: isMobile ? 10 : 12 } }
           }
         }
       },
