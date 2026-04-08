@@ -213,6 +213,6 @@ html { overflow-x: clip; }
     --space-2xl: 4rem;
     --space-xl: 2.5rem;
   }
-  .section { padding-left: var(--space-sm); padding-right: var(--space-sm); }
+  .section { padding-left: 0; padding-right: 0; }
   .container { padding-left: var(--space-sm); padding-right: var(--space-sm); }
 }
