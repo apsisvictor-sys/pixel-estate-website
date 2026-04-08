@@ -202,7 +202,7 @@ h1, h2, h3, .hero-title, .section-title, .trust-card-title, .sell-step-title,
 }
 
 /* Prevent horizontal scroll without breaking position:sticky */
-html, body { overflow-x: clip; }
+html { overflow-x: clip; }
 
 /* Responsive */
 @media (max-width: 768px) {

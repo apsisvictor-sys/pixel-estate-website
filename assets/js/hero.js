@@ -33,14 +33,14 @@ export function initHero() {
         const scrolled = -rect.top;
         const progress = Math.max(0, Math.min(1, scrolled / (heroWrapper.offsetHeight - window.innerHeight)));
 
-        // Subtle zoom effect
-        poster.style.transform = `scale(${1 + progress * 0.15})`;
+        // Zoom effect on poster
+        poster.style.transform = `scale(${1 + progress * 0.3})`;
 
-        // Fade hero content after 80%
+        // Fade hero content in the last 10% of scroll
         if (heroContent) {
-          const contentOpacity = progress < 0.8 ? 1 : Math.max(0, 1 - (progress - 0.8) / 0.2);
+          const contentOpacity = progress < 0.9 ? 1 : Math.max(0, 1 - (progress - 0.9) / 0.1);
           heroContent.style.opacity = contentOpacity;
-          heroContent.style.transform = `translateY(${Math.max(0, (progress - 0.8)) * 200}px)`;
+          heroContent.style.transform = `translateY(${Math.max(0, (progress - 0.9)) * 150}px)`;
         }
       }
 
