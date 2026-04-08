@@ -201,8 +201,8 @@ h1, h2, h3, .hero-title, .section-title, .trust-card-title, .sell-step-title,
   background-size: 16px 16px;
 }
 
-/* Prevent horizontal scroll on mobile */
-html, body { overflow-x: hidden; }
+/* Prevent horizontal scroll without breaking position:sticky */
+html, body { overflow-x: clip; }
 
 /* Responsive */
 @media (max-width: 768px) {
