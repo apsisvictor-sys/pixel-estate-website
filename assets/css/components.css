@@ -262,6 +262,8 @@
   padding: 4px;
   margin-bottom: var(--space-xl);
   width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 }
 .listings-toggle-btn {
   padding: 0.7rem 1.5rem;
